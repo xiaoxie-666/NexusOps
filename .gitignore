@@ -1,0 +1,50 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+*.egg-info/
+
+# Virtual environments
+.venv/
+.venv-*/
+venv/
+env/
+
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*secret*
+*token*
+
+# Runtime data and generated artifacts
+data/*
+!data/.gitkeep
+target/
+dist/
+build/
+*.log
+*.db
+*.sqlite
+*.sqlite3
+*.xlsx
+*.csv
+*.parquet
+*.gguf
+*.pt
+*.pth
+*.zip
+*.tar.gz
+
+# Editors / OS
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

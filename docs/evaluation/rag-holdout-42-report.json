@@ -1,0 +1,3187 @@
+{
+  "generatedUtc": "2026-11-15T09:25:24.869736+00:00",
+  "dataset": "target/nexusops-rag-holdout-42.json",
+  "datasetSha256": "4e3603a90f832268e9a39d0f10be5cf739ff00dc3937797482c8a9dff738dba3",
+  "datasetCases": 42,
+  "topK": 4,
+  "repeats": 3,
+  "warmups": 2,
+  "measurement": "warmed KnowledgeService.retrieve wall time, includes Ollama embed/Chroma/BM25/MySQL; excludes LLM answer generation",
+  "relevancePolicy": "strict exact source match, unique source credited once",
+  "profiles": {
+    "baseline": {
+      "settings": {
+        "knowledge_rerank_enabled": true,
+        "knowledge_rerank_strength": 1.0,
+        "knowledge_rerank_preserve_first": false,
+        "knowledge_max_chunks_per_source": 0
+      },
+      "recallAtK": 0.964286,
+      "mrr": 0.920635,
+      "ndcgAtK": 0.913069,
+      "hitRateAtK": 1.0,
+      "latencyP95Ms": 119.54,
+      "latencyMedianMs": 103.55,
+      "latencySamples": 126,
+      "retrievalModes": {
+        "hybrid": 126
+      },
+      "perCase": [
+        {
+          "recall": 1.0,
+          "mrr": 1.0,
+          "ndcg": 1.0,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:mysql_connection_pool",
+              "chunkId": 5,
+              "relevant": true
+            },
+            {
+              "rank": 2,
+              "source": "ops:mysql_connection_pool",
+              "chunkId": 6,
+              "relevant": false
+            },
+            {
+              "rank": 3,
+              "source": "ops:redis_latency_and_connections",
+              "chunkId": 7,
+              "relevant": false
+            },
+            {
+              "rank": 4,
+              "source": "ops:dns_tcp_connectivity",
+              "chunkId": 3,
+              "relevant": false
+            }
+          ],
+          "id": "holdout_log-01",
+          "category": "holdout_log",
+          "expectedSources": [
+            "ops:mysql_connection_pool"
+          ]
+        },
+        {
+          "recall": 1.0,
+          "mrr": 1.0,
+          "ndcg": 1.0,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:redis_latency_and_connections",
+              "chunkId": 7,
+              "relevant": true
+            },
+            {
+              "rank": 2,
+              "source": "ops:mysql_connection_pool",
+              "chunkId": 5,
+              "relevant": false
+            },
+            {
+              "rank": 3,
+              "source": "ops:cpu_memory_disk_pressure",
+              "chunkId": 1,
+              "relevant": false
+            },
+            {
+              "rank": 4,
+              "source": "ops:http_5xx_and_latency",
+              "chunkId": 4,
+              "relevant": false
+            }
+          ],
+          "id": "holdout_log-02",
+          "category": "holdout_log",
+          "expectedSources": [
+            "ops:redis_latency_and_connections"
+          ]
+        },
+        {
+          "recall": 1.0,
+          "mrr": 1.0,
+          "ndcg": 1.0,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:http_5xx_and_latency",
+              "chunkId": 4,
+              "relevant": true
+            },
+            {
+              "rank": 2,
+              "source": "ops:dns_tcp_connectivity",
+              "chunkId": 3,
+              "relevant": false
+            },
+            {
+              "rank": 3,
+              "source": "ops:mysql_connection_pool",
+              "chunkId": 5,
+              "relevant": false
+            },
+            {
+              "rank": 4,
+              "source": "ops:deployment_regression",
+              "chunkId": 2,
+              "relevant": false
+            }
+          ],
+          "id": "holdout_log-03",
+          "category": "holdout_log",
+          "expectedSources": [
+            "ops:http_5xx_and_latency"
+          ]
+        },
+        {
+          "recall": 1.0,
+          "mrr": 1.0,
+          "ndcg": 1.0,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:dns_tcp_connectivity",
+              "chunkId": 3,
+              "relevant": true
+            },
+            {
+              "rank": 2,
+              "source": "ops:http_5xx_and_latency",
+              "chunkId": 4,
+              "relevant": false
+            },
+            {
+              "rank": 3,
+              "source": "ops:kubernetes_pod_health",
+              "chunkId": 18,
+              "relevant": false
+            },
+            {
+              "rank": 4,
+              "source": "ops:redis_latency_and_connections",
+              "chunkId": 7,
+              "relevant": false
+            }
+          ],
+          "id": "holdout_log-04",
+          "category": "holdout_log",
+          "expectedSources": [
+            "ops:dns_tcp_connectivity"
+          ]
+        },
+        {
+          "recall": 1.0,
+          "mrr": 1.0,
+          "ndcg": 1.0,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:deployment_regression",
+              "chunkId": 2,
+              "relevant": true
+            },
+            {
+              "rank": 2,
+              "source": "ops:kubernetes_pod_health",
+              "chunkId": 18,
+              "relevant": false
+            },
+            {
+              "rank": 3,
+              "source": "ops:http_5xx_and_latency",
+              "chunkId": 4,
+              "relevant": false
+            },
+            {
+              "rank": 4,
+              "source": "ops:kubernetes_pod_health",
+              "chunkId": 17,
+              "relevant": false
+            }
+          ],
+          "id": "holdout_log-05",
+          "category": "holdout_log",
+          "expectedSources": [
+            "ops:deployment_regression"
+          ]
+        },
+        {
+          "recall": 1.0,
+          "mrr": 1.0,
+          "ndcg": 1.0,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:cpu_memory_disk_pressure",
+              "chunkId": 1,
+              "relevant": true
+            },
+            {
+              "rank": 2,
+              "source": "ops:kubernetes_pod_health",
+              "chunkId": 18,
+              "relevant": false
+            },
+            {
+              "rank": 3,
+              "source": "ops:kubernetes_pod_health",
+              "chunkId": 17,
+              "relevant": false
+            },
+            {
+              "rank": 4,
+              "source": "ops:message_queue_backlog",
+              "chunkId": 24,
+              "relevant": false
+            }
+          ],
+          "id": "holdout_log-06",
+          "category": "holdout_log",
+          "expectedSources": [
+            "ops:cpu_memory_disk_pressure"
+          ]
+        },
+        {
+          "recall": 1.0,
+          "mrr": 0.3333333333333333,
+          "ndcg": 0.5,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:deployment_regression",
+              "chunkId": 2,
+              "relevant": false
+            },
+            {
+              "rank": 2,
+              "source": "ops:cpu_memory_disk_pressure",
+              "chunkId": 1,
+              "relevant": false
+            },
+            {
+              "rank": 3,
+              "source": "ops:kubernetes_pod_health",
+              "chunkId": 15,
+              "relevant": true
+            },
+            {
+              "rank": 4,
+              "source": "ops:http_5xx_and_latency",
+              "chunkId": 4,
+              "relevant": false
+            }
+          ],
+          "id": "holdout_log-07",
+          "category": "holdout_log",
+          "expectedSources": [
+            "ops:kubernetes_pod_health"
+          ]
+        },
+        {
+          "recall": 1.0,
+          "mrr": 1.0,
+          "ndcg": 1.0,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:tls_certificate_expiry",
+              "chunkId": 33,
+              "relevant": true
+            },
+            {
+              "rank": 2,
+              "source": "ops:dns_tcp_connectivity",
+              "chunkId": 3,
+              "relevant": false
+            },
+            {
+              "rank": 3,
+              "source": "ops:tls_certificate_expiry",
+              "chunkId": 31,
+              "relevant": false
+            },
+            {
+              "rank": 4,
+              "source": "ops:tls_certificate_expiry",
+              "chunkId": 32,
+              "relevant": false
+            }
+          ],
+          "id": "holdout_log-08",
+          "category": "holdout_log",
+          "expectedSources": [
+            "ops:tls_certificate_expiry"
+          ]
+        },
+        {
+          "recall": 1.0,
+          "mrr": 1.0,
+          "ndcg": 1.0,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:message_queue_backlog",
+              "chunkId": 24,
+              "relevant": true
+            },
+            {
+              "rank": 2,
+              "source": "ops:message_queue_backlog",
+              "chunkId": 22,
+              "relevant": false
+            },
+            {
+              "rank": 3,
+              "source": "ops:message_queue_backlog",
+              "chunkId": 23,
+              "relevant": false
+            },
+            {
+              "rank": 4,
+              "source": "ops:deployment_regression",
+              "chunkId": 2,
+              "relevant": false
+            }
+          ],
+          "id": "holdout_log-09",
+          "category": "holdout_log",
+          "expectedSources": [
+            "ops:message_queue_backlog"
+          ]
+        },
+        {
+          "recall": 1.0,
+          "mrr": 1.0,
+          "ndcg": 1.0,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:backup_restore_validation",
+              "chunkId": 11,
+              "relevant": true
+            },
+            {
+              "rank": 2,
+              "source": "ops:deployment_regression",
+              "chunkId": 2,
+              "relevant": false
+            },
+            {
+              "rank": 3,
+              "source": "ops:redis_latency_and_connections",
+              "chunkId": 8,
+              "relevant": false
+            },
+            {
+              "rank": 4,
+              "source": "ops:mysql_connection_pool",
+              "chunkId": 6,
+              "relevant": false
+            }
+          ],
+          "id": "holdout_log-10",
+          "category": "holdout_log",
+          "expectedSources": [
+            "ops:backup_restore_validation"
+          ]
+        },
+        {
+          "recall": 1.0,
+          "mrr": 0.3333333333333333,
+          "ndcg": 0.5,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:dns_tcp_connectivity",
+              "chunkId": 3,
+              "relevant": false
+            },
+            {
+              "rank": 2,
+              "source": "ops:deployment_regression",
+              "chunkId": 2,
+              "relevant": false
+            },
+            {
+              "rank": 3,
+              "source": "ops:load_balancer_health",
+              "chunkId": 21,
+              "relevant": true
+            },
+            {
+              "rank": 4,
+              "source": "ops:load_balancer_health",
+              "chunkId": 19,
+              "relevant": false
+            }
+          ],
+          "id": "holdout_log-11",
+          "category": "holdout_log",
+          "expectedSources": [
+            "ops:load_balancer_health"
+          ]
+        },
+        {
+          "recall": 1.0,
+          "mrr": 1.0,
+          "ndcg": 1.0,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:security_incident_preservation",
+              "chunkId": 27,
+              "relevant": true
+            },
+            {
+              "rank": 2,
+              "source": "ops:security_incident_preservation",
+              "chunkId": 25,
+              "relevant": false
+            },
+            {
+              "rank": 3,
+              "source": "ops:deployment_regression",
+              "chunkId": 2,
+              "relevant": false
+            },
+            {
+              "rank": 4,
+              "source": "ops:security_incident_preservation",
+              "chunkId": 26,
+              "relevant": false
+            }
+          ],
+          "id": "holdout_log-12",
+          "category": "holdout_log",
+          "expectedSources": [
+            "ops:security_incident_preservation"
+          ]
+        },
+        {
+          "recall": 1.0,
+          "mrr": 0.5,
+          "ndcg": 0.6309297535714575,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:http_5xx_and_latency",
+              "chunkId": 4,
+              "relevant": false
+            },
+            {
+              "rank": 2,
+              "source": "ops:dependency_timeout_cascade",
+              "chunkId": 14,
+              "relevant": true
+            },
+            {
+              "rank": 3,
+              "source": "ops:mysql_connection_pool",
+              "chunkId": 6,
+              "relevant": false
+            },
+            {
+              "rank": 4,
+              "source": "ops:cpu_memory_disk_pressure",
+              "chunkId": 1,
+              "relevant": false
+            }
+          ],
+          "id": "holdout_log-13",
+          "category": "holdout_log",
+          "expectedSources": [
+            "ops:dependency_timeout_cascade"
+          ]
+        },
+        {
+          "recall": 1.0,
+          "mrr": 1.0,
+          "ndcg": 1.0,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:service_slo_and_recovery",
+              "chunkId": 30,
+              "relevant": true
+            },
+            {
+              "rank": 2,
+              "source": "ops:cpu_memory_disk_pressure",
+              "chunkId": 1,
+              "relevant": false
+            },
+            {
+              "rank": 3,
+              "source": "ops:http_5xx_and_latency",
+              "chunkId": 4,
+              "relevant": false
+            },
+            {
+              "rank": 4,
+              "source": "ops:redis_latency_and_connections",
+              "chunkId": 7,
+              "relevant": false
+            }
+          ],
+          "id": "holdout_log-14",
+          "category": "holdout_log",
+          "expectedSources": [
+            "ops:service_slo_and_recovery"
+          ]
+        },
+        {
+          "recall": 1.0,
+          "mrr": 1.0,
+          "ndcg": 1.0,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:mysql_connection_pool",
+              "chunkId": 5,
+              "relevant": true
+            },
+            {
+              "rank": 2,
+              "source": "ops:redis_latency_and_connections",
+              "chunkId": 7,
+              "relevant": false
+            },
+            {
+              "rank": 3,
+              "source": "ops:deployment_regression",
+              "chunkId": 2,
+              "relevant": false
+            },
+            {
+              "rank": 4,
+              "source": "ops:http_5xx_and_latency",
+              "chunkId": 4,
+              "relevant": false
+            }
+          ],
+          "id": "holdout_policy-01",
+          "category": "holdout_policy",
+          "expectedSources": [
+            "ops:mysql_connection_pool"
+          ]
+        },
+        {
+          "recall": 1.0,
+          "mrr": 1.0,
+          "ndcg": 1.0,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:redis_latency_and_connections",
+              "chunkId": 8,
+              "relevant": true
+            },
+            {
+              "rank": 2,
+              "source": "ops:redis_latency_and_connections",
+              "chunkId": 7,
+              "relevant": false
+            },
+            {
+              "rank": 3,
+              "source": "ops:cpu_memory_disk_pressure",
+              "chunkId": 1,
+              "relevant": false
+            },
+            {
+              "rank": 4,
+              "source": "ops:http_5xx_and_latency",
+              "chunkId": 4,
+              "relevant": false
+            }
+          ],
+          "id": "holdout_policy-02",
+          "category": "holdout_policy",
+          "expectedSources": [
+            "ops:redis_latency_and_connections"
+          ]
+        },
+        {
+          "recall": 1.0,
+          "mrr": 1.0,
+          "ndcg": 1.0,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:http_5xx_and_latency",
+              "chunkId": 4,
+              "relevant": true
+            },
+            {
+              "rank": 2,
+              "source": "ops:load_balancer_health",
+              "chunkId": 21,
+              "relevant": false
+            },
+            {
+              "rank": 3,
+              "source": "ops:mysql_connection_pool",
+              "chunkId": 5,
+              "relevant": false
+            },
+            {
+              "rank": 4,
+              "source": "ops:cpu_memory_disk_pressure",
+              "chunkId": 1,
+              "relevant": false
+            }
+          ],
+          "id": "holdout_policy-03",
+          "category": "holdout_policy",
+          "expectedSources": [
+            "ops:http_5xx_and_latency"
+          ]
+        },
+        {
+          "recall": 1.0,
+          "mrr": 1.0,
+          "ndcg": 1.0,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:dns_tcp_connectivity",
+              "chunkId": 3,
+              "relevant": true
+            },
+            {
+              "rank": 2,
+              "source": "ops:load_balancer_health",
+              "chunkId": 20,
+              "relevant": false
+            },
+            {
+              "rank": 3,
+              "source": "ops:http_5xx_and_latency",
+              "chunkId": 4,
+              "relevant": false
+            },
+            {
+              "rank": 4,
+              "source": "ops:deployment_regression",
+              "chunkId": 2,
+              "relevant": false
+            }
+          ],
+          "id": "holdout_policy-04",
+          "category": "holdout_policy",
+          "expectedSources": [
+            "ops:dns_tcp_connectivity"
+          ]
+        },
+        {
+          "recall": 1.0,
+          "mrr": 1.0,
+          "ndcg": 1.0,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:deployment_regression",
+              "chunkId": 2,
+              "relevant": true
+            },
+            {
+              "rank": 2,
+              "source": "ops:mysql_connection_pool",
+              "chunkId": 5,
+              "relevant": false
+            },
+            {
+              "rank": 3,
+              "source": "ops:mysql_connection_pool",
+              "chunkId": 6,
+              "relevant": false
+            },
+            {
+              "rank": 4,
+              "source": "ops:backup_restore_validation",
+              "chunkId": 11,
+              "relevant": false
+            }
+          ],
+          "id": "holdout_policy-05",
+          "category": "holdout_policy",
+          "expectedSources": [
+            "ops:deployment_regression"
+          ]
+        },
+        {
+          "recall": 1.0,
+          "mrr": 1.0,
+          "ndcg": 1.0,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:cpu_memory_disk_pressure",
+              "chunkId": 1,
+              "relevant": true
+            },
+            {
+              "rank": 2,
+              "source": "ops:deployment_regression",
+              "chunkId": 2,
+              "relevant": false
+            },
+            {
+              "rank": 3,
+              "source": "ops:redis_latency_and_connections",
+              "chunkId": 8,
+              "relevant": false
+            },
+            {
+              "rank": 4,
+              "source": "ops:kubernetes_pod_health",
+              "chunkId": 18,
+              "relevant": false
+            }
+          ],
+          "id": "holdout_policy-06",
+          "category": "holdout_policy",
+          "expectedSources": [
+            "ops:cpu_memory_disk_pressure"
+          ]
+        },
+        {
+          "recall": 1.0,
+          "mrr": 0.25,
+          "ndcg": 0.43067655807339306,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:deployment_regression",
+              "chunkId": 2,
+              "relevant": false
+            },
+            {
+              "rank": 2,
+              "source": "ops:cpu_memory_disk_pressure",
+              "chunkId": 1,
+              "relevant": false
+            },
+            {
+              "rank": 3,
+              "source": "ops:http_5xx_and_latency",
+              "chunkId": 4,
+              "relevant": false
+            },
+            {
+              "rank": 4,
+              "source": "ops:kubernetes_pod_health",
+              "chunkId": 18,
+              "relevant": true
+            }
+          ],
+          "id": "holdout_policy-07",
+          "category": "holdout_policy",
+          "expectedSources": [
+            "ops:kubernetes_pod_health"
+          ]
+        },
+        {
+          "recall": 1.0,
+          "mrr": 1.0,
+          "ndcg": 1.0,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:tls_certificate_expiry",
+              "chunkId": 33,
+              "relevant": true
+            },
+            {
+              "rank": 2,
+              "source": "ops:tls_certificate_expiry",
+              "chunkId": 32,
+              "relevant": false
+            },
+            {
+              "rank": 3,
+              "source": "ops:dns_tcp_connectivity",
+              "chunkId": 3,
+              "relevant": false
+            },
+            {
+              "rank": 4,
+              "source": "ops:tls_certificate_expiry",
+              "chunkId": 31,
+              "relevant": false
+            }
+          ],
+          "id": "holdout_policy-08",
+          "category": "holdout_policy",
+          "expectedSources": [
+            "ops:tls_certificate_expiry"
+          ]
+        },
+        {
+          "recall": 1.0,
+          "mrr": 1.0,
+          "ndcg": 1.0,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:message_queue_backlog",
+              "chunkId": 24,
+              "relevant": true
+            },
+            {
+              "rank": 2,
+              "source": "ops:cpu_memory_disk_pressure",
+              "chunkId": 1,
+              "relevant": false
+            },
+            {
+              "rank": 3,
+              "source": "ops:mysql_connection_pool",
+              "chunkId": 5,
+              "relevant": false
+            },
+            {
+              "rank": 4,
+              "source": "ops:deployment_regression",
+              "chunkId": 2,
+              "relevant": false
+            }
+          ],
+          "id": "holdout_policy-09",
+          "category": "holdout_policy",
+          "expectedSources": [
+            "ops:message_queue_backlog"
+          ]
+        },
+        {
+          "recall": 1.0,
+          "mrr": 1.0,
+          "ndcg": 1.0,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:backup_restore_validation",
+              "chunkId": 11,
+              "relevant": true
+            },
+            {
+              "rank": 2,
+              "source": "ops:service_slo_and_recovery",
+              "chunkId": 30,
+              "relevant": false
+            },
+            {
+              "rank": 3,
+              "source": "ops:deployment_regression",
+              "chunkId": 2,
+              "relevant": false
+            },
+            {
+              "rank": 4,
+              "source": "ops:mysql_connection_pool",
+              "chunkId": 5,
+              "relevant": false
+            }
+          ],
+          "id": "holdout_policy-10",
+          "category": "holdout_policy",
+          "expectedSources": [
+            "ops:backup_restore_validation"
+          ]
+        },
+        {
+          "recall": 1.0,
+          "mrr": 1.0,
+          "ndcg": 1.0,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:load_balancer_health",
+              "chunkId": 21,
+              "relevant": true
+            },
+            {
+              "rank": 2,
+              "source": "ops:dns_tcp_connectivity",
+              "chunkId": 3,
+              "relevant": false
+            },
+            {
+              "rank": 3,
+              "source": "ops:mysql_connection_pool",
+              "chunkId": 5,
+              "relevant": false
+            },
+            {
+              "rank": 4,
+              "source": "ops:redis_latency_and_connections",
+              "chunkId": 7,
+              "relevant": false
+            }
+          ],
+          "id": "holdout_policy-11",
+          "category": "holdout_policy",
+          "expectedSources": [
+            "ops:load_balancer_health"
+          ]
+        },
+        {
+          "recall": 1.0,
+          "mrr": 1.0,
+          "ndcg": 1.0,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:security_incident_preservation",
+              "chunkId": 27,
+              "relevant": true
+            },
+            {
+              "rank": 2,
+              "source": "ops:security_incident_preservation",
+              "chunkId": 25,
+              "relevant": false
+            },
+            {
+              "rank": 3,
+              "source": "ops:cpu_memory_disk_pressure",
+              "chunkId": 1,
+              "relevant": false
+            },
+            {
+              "rank": 4,
+              "source": "ops:redis_latency_and_connections",
+              "chunkId": 7,
+              "relevant": false
+            }
+          ],
+          "id": "holdout_policy-12",
+          "category": "holdout_policy",
+          "expectedSources": [
+            "ops:security_incident_preservation"
+          ]
+        },
+        {
+          "recall": 1.0,
+          "mrr": 1.0,
+          "ndcg": 1.0,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:dependency_timeout_cascade",
+              "chunkId": 14,
+              "relevant": true
+            },
+            {
+              "rank": 2,
+              "source": "ops:http_5xx_and_latency",
+              "chunkId": 4,
+              "relevant": false
+            },
+            {
+              "rank": 3,
+              "source": "ops:deployment_regression",
+              "chunkId": 2,
+              "relevant": false
+            },
+            {
+              "rank": 4,
+              "source": "ops:mysql_connection_pool",
+              "chunkId": 5,
+              "relevant": false
+            }
+          ],
+          "id": "holdout_policy-13",
+          "category": "holdout_policy",
+          "expectedSources": [
+            "ops:dependency_timeout_cascade"
+          ]
+        },
+        {
+          "recall": 1.0,
+          "mrr": 1.0,
+          "ndcg": 1.0,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:service_slo_and_recovery",
+              "chunkId": 30,
+              "relevant": true
+            },
+            {
+              "rank": 2,
+              "source": "ops:mysql_connection_pool",
+              "chunkId": 6,
+              "relevant": false
+            },
+            {
+              "rank": 3,
+              "source": "ops:cpu_memory_disk_pressure",
+              "chunkId": 1,
+              "relevant": false
+            },
+            {
+              "rank": 4,
+              "source": "ops:message_queue_backlog",
+              "chunkId": 24,
+              "relevant": false
+            }
+          ],
+          "id": "holdout_policy-14",
+          "category": "holdout_policy",
+          "expectedSources": [
+            "ops:service_slo_and_recovery"
+          ]
+        },
+        {
+          "recall": 1.0,
+          "mrr": 1.0,
+          "ndcg": 0.8772153153380493,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:mysql_connection_pool",
+              "chunkId": 5,
+              "relevant": true
+            },
+            {
+              "rank": 2,
+              "source": "ops:mysql_connection_pool",
+              "chunkId": 6,
+              "relevant": false
+            },
+            {
+              "rank": 3,
+              "source": "ops:cpu_memory_disk_pressure",
+              "chunkId": 1,
+              "relevant": false
+            },
+            {
+              "rank": 4,
+              "source": "ops:http_5xx_and_latency",
+              "chunkId": 4,
+              "relevant": true
+            }
+          ],
+          "id": "holdout_cross-01",
+          "category": "holdout_cross",
+          "expectedSources": [
+            "ops:mysql_connection_pool",
+            "ops:http_5xx_and_latency"
+          ]
+        },
+        {
+          "recall": 0.5,
+          "mrr": 0.25,
+          "ndcg": 0.2640681225725909,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:mysql_connection_pool",
+              "chunkId": 5,
+              "relevant": false
+            },
+            {
+              "rank": 2,
+              "source": "ops:cpu_memory_disk_pressure",
+              "chunkId": 1,
+              "relevant": false
+            },
+            {
+              "rank": 3,
+              "source": "ops:http_5xx_and_latency",
+              "chunkId": 4,
+              "relevant": false
+            },
+            {
+              "rank": 4,
+              "source": "ops:redis_latency_and_connections",
+              "chunkId": 7,
+              "relevant": true
+            }
+          ],
+          "id": "holdout_cross-02",
+          "category": "holdout_cross",
+          "expectedSources": [
+            "ops:redis_latency_and_connections",
+            "ops:dependency_timeout_cascade"
+          ]
+        },
+        {
+          "recall": 1.0,
+          "mrr": 1.0,
+          "ndcg": 1.0,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:dns_tcp_connectivity",
+              "chunkId": 3,
+              "relevant": true
+            },
+            {
+              "rank": 2,
+              "source": "ops:tls_certificate_expiry",
+              "chunkId": 33,
+              "relevant": true
+            },
+            {
+              "rank": 3,
+              "source": "ops:tls_certificate_expiry",
+              "chunkId": 31,
+              "relevant": false
+            },
+            {
+              "rank": 4,
+              "source": "ops:http_5xx_and_latency",
+              "chunkId": 4,
+              "relevant": false
+            }
+          ],
+          "id": "holdout_cross-03",
+          "category": "holdout_cross",
+          "expectedSources": [
+            "ops:dns_tcp_connectivity",
+            "ops:tls_certificate_expiry"
+          ]
+        },
+        {
+          "recall": 1.0,
+          "mrr": 1.0,
+          "ndcg": 1.0,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:deployment_regression",
+              "chunkId": 2,
+              "relevant": true
+            },
+            {
+              "rank": 2,
+              "source": "ops:kubernetes_pod_health",
+              "chunkId": 18,
+              "relevant": true
+            },
+            {
+              "rank": 3,
+              "source": "ops:kubernetes_pod_health",
+              "chunkId": 15,
+              "relevant": false
+            },
+            {
+              "rank": 4,
+              "source": "ops:kubernetes_pod_health",
+              "chunkId": 16,
+              "relevant": false
+            }
+          ],
+          "id": "holdout_cross-04",
+          "category": "holdout_cross",
+          "expectedSources": [
+            "ops:deployment_regression",
+            "ops:kubernetes_pod_health"
+          ]
+        },
+        {
+          "recall": 1.0,
+          "mrr": 1.0,
+          "ndcg": 0.9197207891481876,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:cpu_memory_disk_pressure",
+              "chunkId": 1,
+              "relevant": true
+            },
+            {
+              "rank": 2,
+              "source": "ops:redis_latency_and_connections",
+              "chunkId": 7,
+              "relevant": false
+            },
+            {
+              "rank": 3,
+              "source": "ops:kubernetes_pod_health",
+              "chunkId": 18,
+              "relevant": true
+            },
+            {
+              "rank": 4,
+              "source": "ops:kubernetes_pod_health",
+              "chunkId": 15,
+              "relevant": false
+            }
+          ],
+          "id": "holdout_cross-05",
+          "category": "holdout_cross",
+          "expectedSources": [
+            "ops:cpu_memory_disk_pressure",
+            "ops:kubernetes_pod_health"
+          ]
+        },
+        {
+          "recall": 1.0,
+          "mrr": 1.0,
+          "ndcg": 1.0,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:load_balancer_health",
+              "chunkId": 21,
+              "relevant": true
+            },
+            {
+              "rank": 2,
+              "source": "ops:http_5xx_and_latency",
+              "chunkId": 4,
+              "relevant": true
+            },
+            {
+              "rank": 3,
+              "source": "ops:dns_tcp_connectivity",
+              "chunkId": 3,
+              "relevant": false
+            },
+            {
+              "rank": 4,
+              "source": "ops:deployment_regression",
+              "chunkId": 2,
+              "relevant": false
+            }
+          ],
+          "id": "holdout_cross-06",
+          "category": "holdout_cross",
+          "expectedSources": [
+            "ops:http_5xx_and_latency",
+            "ops:load_balancer_health"
+          ]
+        },
+        {
+          "recall": 0.5,
+          "mrr": 1.0,
+          "ndcg": 0.6131471927654584,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:message_queue_backlog",
+              "chunkId": 24,
+              "relevant": true
+            },
+            {
+              "rank": 2,
+              "source": "ops:cpu_memory_disk_pressure",
+              "chunkId": 1,
+              "relevant": false
+            },
+            {
+              "rank": 3,
+              "source": "ops:http_5xx_and_latency",
+              "chunkId": 4,
+              "relevant": false
+            },
+            {
+              "rank": 4,
+              "source": "ops:redis_latency_and_connections",
+              "chunkId": 7,
+              "relevant": false
+            }
+          ],
+          "id": "holdout_cross-07",
+          "category": "holdout_cross",
+          "expectedSources": [
+            "ops:message_queue_backlog",
+            "ops:dependency_timeout_cascade"
+          ]
+        },
+        {
+          "recall": 1.0,
+          "mrr": 1.0,
+          "ndcg": 1.0,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:backup_restore_validation",
+              "chunkId": 11,
+              "relevant": true
+            },
+            {
+              "rank": 2,
+              "source": "ops:security_incident_preservation",
+              "chunkId": 27,
+              "relevant": true
+            },
+            {
+              "rank": 3,
+              "source": "ops:redis_latency_and_connections",
+              "chunkId": 8,
+              "relevant": false
+            },
+            {
+              "rank": 4,
+              "source": "ops:deployment_regression",
+              "chunkId": 2,
+              "relevant": false
+            }
+          ],
+          "id": "holdout_cross-08",
+          "category": "holdout_cross",
+          "expectedSources": [
+            "ops:backup_restore_validation",
+            "ops:security_incident_preservation"
+          ]
+        },
+        {
+          "recall": 0.5,
+          "mrr": 1.0,
+          "ndcg": 0.6131471927654584,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:message_queue_backlog",
+              "chunkId": 24,
+              "relevant": true
+            },
+            {
+              "rank": 2,
+              "source": "ops:http_5xx_and_latency",
+              "chunkId": 4,
+              "relevant": false
+            },
+            {
+              "rank": 3,
+              "source": "ops:redis_latency_and_connections",
+              "chunkId": 8,
+              "relevant": false
+            },
+            {
+              "rank": 4,
+              "source": "ops:redis_latency_and_connections",
+              "chunkId": 7,
+              "relevant": false
+            }
+          ],
+          "id": "holdout_cross-09",
+          "category": "holdout_cross",
+          "expectedSources": [
+            "ops:service_slo_and_recovery",
+            "ops:message_queue_backlog"
+          ]
+        },
+        {
+          "recall": 1.0,
+          "mrr": 1.0,
+          "ndcg": 1.0,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:dns_tcp_connectivity",
+              "chunkId": 3,
+              "relevant": true
+            },
+            {
+              "rank": 2,
+              "source": "ops:load_balancer_health",
+              "chunkId": 21,
+              "relevant": true
+            },
+            {
+              "rank": 3,
+              "source": "ops:load_balancer_health",
+              "chunkId": 19,
+              "relevant": false
+            },
+            {
+              "rank": 4,
+              "source": "ops:load_balancer_health",
+              "chunkId": 20,
+              "relevant": false
+            }
+          ],
+          "id": "holdout_cross-10",
+          "category": "holdout_cross",
+          "expectedSources": [
+            "ops:load_balancer_health",
+            "ops:dns_tcp_connectivity"
+          ]
+        },
+        {
+          "recall": 1.0,
+          "mrr": 1.0,
+          "ndcg": 1.0,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:tls_certificate_expiry",
+              "chunkId": 33,
+              "relevant": true
+            },
+            {
+              "rank": 2,
+              "source": "ops:security_incident_preservation",
+              "chunkId": 27,
+              "relevant": true
+            },
+            {
+              "rank": 3,
+              "source": "ops:dns_tcp_connectivity",
+              "chunkId": 3,
+              "relevant": false
+            },
+            {
+              "rank": 4,
+              "source": "ops:deployment_regression",
+              "chunkId": 2,
+              "relevant": false
+            }
+          ],
+          "id": "holdout_cross-11",
+          "category": "holdout_cross",
+          "expectedSources": [
+            "ops:tls_certificate_expiry",
+            "ops:security_incident_preservation"
+          ]
+        },
+        {
+          "recall": 1.0,
+          "mrr": 1.0,
+          "ndcg": 1.0,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:deployment_regression",
+              "chunkId": 2,
+              "relevant": true
+            },
+            {
+              "rank": 2,
+              "source": "ops:backup_restore_validation",
+              "chunkId": 11,
+              "relevant": true
+            },
+            {
+              "rank": 3,
+              "source": "ops:mysql_connection_pool",
+              "chunkId": 5,
+              "relevant": false
+            },
+            {
+              "rank": 4,
+              "source": "ops:mysql_connection_pool",
+              "chunkId": 6,
+              "relevant": false
+            }
+          ],
+          "id": "holdout_cross-12",
+          "category": "holdout_cross",
+          "expectedSources": [
+            "ops:deployment_regression",
+            "ops:backup_restore_validation"
+          ]
+        },
+        {
+          "recall": 1.0,
+          "mrr": 1.0,
+          "ndcg": 1.0,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:mysql_connection_pool",
+              "chunkId": 5,
+              "relevant": true
+            },
+            {
+              "rank": 2,
+              "source": "ops:dependency_timeout_cascade",
+              "chunkId": 14,
+              "relevant": true
+            },
+            {
+              "rank": 3,
+              "source": "ops:http_5xx_and_latency",
+              "chunkId": 4,
+              "relevant": false
+            },
+            {
+              "rank": 4,
+              "source": "ops:redis_latency_and_connections",
+              "chunkId": 7,
+              "relevant": false
+            }
+          ],
+          "id": "holdout_cross-13",
+          "category": "holdout_cross",
+          "expectedSources": [
+            "ops:mysql_connection_pool",
+            "ops:dependency_timeout_cascade"
+          ]
+        },
+        {
+          "recall": 1.0,
+          "mrr": 1.0,
+          "ndcg": 1.0,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:http_5xx_and_latency",
+              "chunkId": 4,
+              "relevant": true
+            },
+            {
+              "rank": 2,
+              "source": "ops:service_slo_and_recovery",
+              "chunkId": 30,
+              "relevant": true
+            },
+            {
+              "rank": 3,
+              "source": "ops:mysql_connection_pool",
+              "chunkId": 6,
+              "relevant": false
+            },
+            {
+              "rank": 4,
+              "source": "ops:mysql_connection_pool",
+              "chunkId": 5,
+              "relevant": false
+            }
+          ],
+          "id": "holdout_cross-14",
+          "category": "holdout_cross",
+          "expectedSources": [
+            "ops:service_slo_and_recovery",
+            "ops:http_5xx_and_latency"
+          ]
+        }
+      ]
+    },
+    "diversity-only": {
+      "settings": {
+        "knowledge_rerank_enabled": false,
+        "knowledge_max_chunks_per_source": 1
+      },
+      "recallAtK": 0.97619,
+      "mrr": 0.920635,
+      "ndcgAtK": 0.920369,
+      "hitRateAtK": 1.0,
+      "latencyP95Ms": 123.37,
+      "latencyMedianMs": 106.89,
+      "latencySamples": 126,
+      "retrievalModes": {
+        "hybrid": 126
+      },
+      "perCase": [
+        {
+          "recall": 1.0,
+          "mrr": 1.0,
+          "ndcg": 1.0,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:mysql_connection_pool",
+              "chunkId": 5,
+              "relevant": true
+            },
+            {
+              "rank": 2,
+              "source": "ops:redis_latency_and_connections",
+              "chunkId": 7,
+              "relevant": false
+            },
+            {
+              "rank": 3,
+              "source": "ops:dns_tcp_connectivity",
+              "chunkId": 3,
+              "relevant": false
+            },
+            {
+              "rank": 4,
+              "source": "ops:http_5xx_and_latency",
+              "chunkId": 4,
+              "relevant": false
+            }
+          ],
+          "id": "holdout_log-01",
+          "category": "holdout_log",
+          "expectedSources": [
+            "ops:mysql_connection_pool"
+          ]
+        },
+        {
+          "recall": 1.0,
+          "mrr": 1.0,
+          "ndcg": 1.0,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:redis_latency_and_connections",
+              "chunkId": 7,
+              "relevant": true
+            },
+            {
+              "rank": 2,
+              "source": "ops:mysql_connection_pool",
+              "chunkId": 5,
+              "relevant": false
+            },
+            {
+              "rank": 3,
+              "source": "ops:http_5xx_and_latency",
+              "chunkId": 4,
+              "relevant": false
+            },
+            {
+              "rank": 4,
+              "source": "ops:cpu_memory_disk_pressure",
+              "chunkId": 1,
+              "relevant": false
+            }
+          ],
+          "id": "holdout_log-02",
+          "category": "holdout_log",
+          "expectedSources": [
+            "ops:redis_latency_and_connections"
+          ]
+        },
+        {
+          "recall": 1.0,
+          "mrr": 1.0,
+          "ndcg": 1.0,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:http_5xx_and_latency",
+              "chunkId": 4,
+              "relevant": true
+            },
+            {
+              "rank": 2,
+              "source": "ops:dns_tcp_connectivity",
+              "chunkId": 3,
+              "relevant": false
+            },
+            {
+              "rank": 3,
+              "source": "ops:mysql_connection_pool",
+              "chunkId": 5,
+              "relevant": false
+            },
+            {
+              "rank": 4,
+              "source": "ops:deployment_regression",
+              "chunkId": 2,
+              "relevant": false
+            }
+          ],
+          "id": "holdout_log-03",
+          "category": "holdout_log",
+          "expectedSources": [
+            "ops:http_5xx_and_latency"
+          ]
+        },
+        {
+          "recall": 1.0,
+          "mrr": 1.0,
+          "ndcg": 1.0,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:dns_tcp_connectivity",
+              "chunkId": 3,
+              "relevant": true
+            },
+            {
+              "rank": 2,
+              "source": "ops:kubernetes_pod_health",
+              "chunkId": 18,
+              "relevant": false
+            },
+            {
+              "rank": 3,
+              "source": "ops:http_5xx_and_latency",
+              "chunkId": 4,
+              "relevant": false
+            },
+            {
+              "rank": 4,
+              "source": "ops:redis_latency_and_connections",
+              "chunkId": 7,
+              "relevant": false
+            }
+          ],
+          "id": "holdout_log-04",
+          "category": "holdout_log",
+          "expectedSources": [
+            "ops:dns_tcp_connectivity"
+          ]
+        },
+        {
+          "recall": 1.0,
+          "mrr": 1.0,
+          "ndcg": 1.0,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:deployment_regression",
+              "chunkId": 2,
+              "relevant": true
+            },
+            {
+              "rank": 2,
+              "source": "ops:kubernetes_pod_health",
+              "chunkId": 17,
+              "relevant": false
+            },
+            {
+              "rank": 3,
+              "source": "ops:http_5xx_and_latency",
+              "chunkId": 4,
+              "relevant": false
+            },
+            {
+              "rank": 4,
+              "source": "ops:load_balancer_health",
+              "chunkId": 21,
+              "relevant": false
+            }
+          ],
+          "id": "holdout_log-05",
+          "category": "holdout_log",
+          "expectedSources": [
+            "ops:deployment_regression"
+          ]
+        },
+        {
+          "recall": 1.0,
+          "mrr": 1.0,
+          "ndcg": 1.0,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:cpu_memory_disk_pressure",
+              "chunkId": 1,
+              "relevant": true
+            },
+            {
+              "rank": 2,
+              "source": "ops:kubernetes_pod_health",
+              "chunkId": 18,
+              "relevant": false
+            },
+            {
+              "rank": 3,
+              "source": "ops:message_queue_backlog",
+              "chunkId": 24,
+              "relevant": false
+            },
+            {
+              "rank": 4,
+              "source": "ops:redis_latency_and_connections",
+              "chunkId": 7,
+              "relevant": false
+            }
+          ],
+          "id": "holdout_log-06",
+          "category": "holdout_log",
+          "expectedSources": [
+            "ops:cpu_memory_disk_pressure"
+          ]
+        },
+        {
+          "recall": 1.0,
+          "mrr": 0.3333333333333333,
+          "ndcg": 0.5,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:deployment_regression",
+              "chunkId": 2,
+              "relevant": false
+            },
+            {
+              "rank": 2,
+              "source": "ops:cpu_memory_disk_pressure",
+              "chunkId": 1,
+              "relevant": false
+            },
+            {
+              "rank": 3,
+              "source": "ops:kubernetes_pod_health",
+              "chunkId": 15,
+              "relevant": true
+            },
+            {
+              "rank": 4,
+              "source": "ops:http_5xx_and_latency",
+              "chunkId": 4,
+              "relevant": false
+            }
+          ],
+          "id": "holdout_log-07",
+          "category": "holdout_log",
+          "expectedSources": [
+            "ops:kubernetes_pod_health"
+          ]
+        },
+        {
+          "recall": 1.0,
+          "mrr": 1.0,
+          "ndcg": 1.0,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:tls_certificate_expiry",
+              "chunkId": 33,
+              "relevant": true
+            },
+            {
+              "rank": 2,
+              "source": "ops:dns_tcp_connectivity",
+              "chunkId": 3,
+              "relevant": false
+            },
+            {
+              "rank": 3,
+              "source": "ops:http_5xx_and_latency",
+              "chunkId": 4,
+              "relevant": false
+            },
+            {
+              "rank": 4,
+              "source": "ops:redis_latency_and_connections",
+              "chunkId": 8,
+              "relevant": false
+            }
+          ],
+          "id": "holdout_log-08",
+          "category": "holdout_log",
+          "expectedSources": [
+            "ops:tls_certificate_expiry"
+          ]
+        },
+        {
+          "recall": 1.0,
+          "mrr": 1.0,
+          "ndcg": 1.0,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:message_queue_backlog",
+              "chunkId": 24,
+              "relevant": true
+            },
+            {
+              "rank": 2,
+              "source": "ops:load_balancer_health",
+              "chunkId": 21,
+              "relevant": false
+            },
+            {
+              "rank": 3,
+              "source": "ops:redis_latency_and_connections",
+              "chunkId": 8,
+              "relevant": false
+            },
+            {
+              "rank": 4,
+              "source": "ops:deployment_regression",
+              "chunkId": 2,
+              "relevant": false
+            }
+          ],
+          "id": "holdout_log-09",
+          "category": "holdout_log",
+          "expectedSources": [
+            "ops:message_queue_backlog"
+          ]
+        },
+        {
+          "recall": 1.0,
+          "mrr": 1.0,
+          "ndcg": 1.0,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:backup_restore_validation",
+              "chunkId": 11,
+              "relevant": true
+            },
+            {
+              "rank": 2,
+              "source": "ops:deployment_regression",
+              "chunkId": 2,
+              "relevant": false
+            },
+            {
+              "rank": 3,
+              "source": "ops:redis_latency_and_connections",
+              "chunkId": 8,
+              "relevant": false
+            },
+            {
+              "rank": 4,
+              "source": "ops:mysql_connection_pool",
+              "chunkId": 6,
+              "relevant": false
+            }
+          ],
+          "id": "holdout_log-10",
+          "category": "holdout_log",
+          "expectedSources": [
+            "ops:backup_restore_validation"
+          ]
+        },
+        {
+          "recall": 1.0,
+          "mrr": 0.3333333333333333,
+          "ndcg": 0.5,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:deployment_regression",
+              "chunkId": 2,
+              "relevant": false
+            },
+            {
+              "rank": 2,
+              "source": "ops:dns_tcp_connectivity",
+              "chunkId": 3,
+              "relevant": false
+            },
+            {
+              "rank": 3,
+              "source": "ops:load_balancer_health",
+              "chunkId": 21,
+              "relevant": true
+            },
+            {
+              "rank": 4,
+              "source": "ops:redis_latency_and_connections",
+              "chunkId": 7,
+              "relevant": false
+            }
+          ],
+          "id": "holdout_log-11",
+          "category": "holdout_log",
+          "expectedSources": [
+            "ops:load_balancer_health"
+          ]
+        },
+        {
+          "recall": 1.0,
+          "mrr": 1.0,
+          "ndcg": 1.0,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:security_incident_preservation",
+              "chunkId": 27,
+              "relevant": true
+            },
+            {
+              "rank": 2,
+              "source": "ops:deployment_regression",
+              "chunkId": 2,
+              "relevant": false
+            },
+            {
+              "rank": 3,
+              "source": "ops:load_balancer_health",
+              "chunkId": 21,
+              "relevant": false
+            },
+            {
+              "rank": 4,
+              "source": "ops:mysql_connection_pool",
+              "chunkId": 6,
+              "relevant": false
+            }
+          ],
+          "id": "holdout_log-12",
+          "category": "holdout_log",
+          "expectedSources": [
+            "ops:security_incident_preservation"
+          ]
+        },
+        {
+          "recall": 1.0,
+          "mrr": 0.5,
+          "ndcg": 0.6309297535714575,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:http_5xx_and_latency",
+              "chunkId": 4,
+              "relevant": false
+            },
+            {
+              "rank": 2,
+              "source": "ops:dependency_timeout_cascade",
+              "chunkId": 14,
+              "relevant": true
+            },
+            {
+              "rank": 3,
+              "source": "ops:mysql_connection_pool",
+              "chunkId": 6,
+              "relevant": false
+            },
+            {
+              "rank": 4,
+              "source": "ops:cpu_memory_disk_pressure",
+              "chunkId": 1,
+              "relevant": false
+            }
+          ],
+          "id": "holdout_log-13",
+          "category": "holdout_log",
+          "expectedSources": [
+            "ops:dependency_timeout_cascade"
+          ]
+        },
+        {
+          "recall": 1.0,
+          "mrr": 1.0,
+          "ndcg": 1.0,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:service_slo_and_recovery",
+              "chunkId": 30,
+              "relevant": true
+            },
+            {
+              "rank": 2,
+              "source": "ops:cpu_memory_disk_pressure",
+              "chunkId": 1,
+              "relevant": false
+            },
+            {
+              "rank": 3,
+              "source": "ops:http_5xx_and_latency",
+              "chunkId": 4,
+              "relevant": false
+            },
+            {
+              "rank": 4,
+              "source": "ops:redis_latency_and_connections",
+              "chunkId": 8,
+              "relevant": false
+            }
+          ],
+          "id": "holdout_log-14",
+          "category": "holdout_log",
+          "expectedSources": [
+            "ops:service_slo_and_recovery"
+          ]
+        },
+        {
+          "recall": 1.0,
+          "mrr": 1.0,
+          "ndcg": 1.0,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:mysql_connection_pool",
+              "chunkId": 5,
+              "relevant": true
+            },
+            {
+              "rank": 2,
+              "source": "ops:redis_latency_and_connections",
+              "chunkId": 7,
+              "relevant": false
+            },
+            {
+              "rank": 3,
+              "source": "ops:deployment_regression",
+              "chunkId": 2,
+              "relevant": false
+            },
+            {
+              "rank": 4,
+              "source": "ops:http_5xx_and_latency",
+              "chunkId": 4,
+              "relevant": false
+            }
+          ],
+          "id": "holdout_policy-01",
+          "category": "holdout_policy",
+          "expectedSources": [
+            "ops:mysql_connection_pool"
+          ]
+        },
+        {
+          "recall": 1.0,
+          "mrr": 1.0,
+          "ndcg": 1.0,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:redis_latency_and_connections",
+              "chunkId": 8,
+              "relevant": true
+            },
+            {
+              "rank": 2,
+              "source": "ops:cpu_memory_disk_pressure",
+              "chunkId": 1,
+              "relevant": false
+            },
+            {
+              "rank": 3,
+              "source": "ops:message_queue_backlog",
+              "chunkId": 24,
+              "relevant": false
+            },
+            {
+              "rank": 4,
+              "source": "ops:http_5xx_and_latency",
+              "chunkId": 4,
+              "relevant": false
+            }
+          ],
+          "id": "holdout_policy-02",
+          "category": "holdout_policy",
+          "expectedSources": [
+            "ops:redis_latency_and_connections"
+          ]
+        },
+        {
+          "recall": 1.0,
+          "mrr": 1.0,
+          "ndcg": 1.0,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:http_5xx_and_latency",
+              "chunkId": 4,
+              "relevant": true
+            },
+            {
+              "rank": 2,
+              "source": "ops:load_balancer_health",
+              "chunkId": 21,
+              "relevant": false
+            },
+            {
+              "rank": 3,
+              "source": "ops:dependency_timeout_cascade",
+              "chunkId": 14,
+              "relevant": false
+            },
+            {
+              "rank": 4,
+              "source": "ops:cpu_memory_disk_pressure",
+              "chunkId": 1,
+              "relevant": false
+            }
+          ],
+          "id": "holdout_policy-03",
+          "category": "holdout_policy",
+          "expectedSources": [
+            "ops:http_5xx_and_latency"
+          ]
+        },
+        {
+          "recall": 1.0,
+          "mrr": 1.0,
+          "ndcg": 1.0,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:dns_tcp_connectivity",
+              "chunkId": 3,
+              "relevant": true
+            },
+            {
+              "rank": 2,
+              "source": "ops:load_balancer_health",
+              "chunkId": 20,
+              "relevant": false
+            },
+            {
+              "rank": 3,
+              "source": "ops:http_5xx_and_latency",
+              "chunkId": 4,
+              "relevant": false
+            },
+            {
+              "rank": 4,
+              "source": "ops:deployment_regression",
+              "chunkId": 2,
+              "relevant": false
+            }
+          ],
+          "id": "holdout_policy-04",
+          "category": "holdout_policy",
+          "expectedSources": [
+            "ops:dns_tcp_connectivity"
+          ]
+        },
+        {
+          "recall": 1.0,
+          "mrr": 1.0,
+          "ndcg": 1.0,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:deployment_regression",
+              "chunkId": 2,
+              "relevant": true
+            },
+            {
+              "rank": 2,
+              "source": "ops:backup_restore_validation",
+              "chunkId": 11,
+              "relevant": false
+            },
+            {
+              "rank": 3,
+              "source": "ops:mysql_connection_pool",
+              "chunkId": 6,
+              "relevant": false
+            },
+            {
+              "rank": 4,
+              "source": "ops:load_balancer_health",
+              "chunkId": 21,
+              "relevant": false
+            }
+          ],
+          "id": "holdout_policy-05",
+          "category": "holdout_policy",
+          "expectedSources": [
+            "ops:deployment_regression"
+          ]
+        },
+        {
+          "recall": 1.0,
+          "mrr": 1.0,
+          "ndcg": 1.0,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:cpu_memory_disk_pressure",
+              "chunkId": 1,
+              "relevant": true
+            },
+            {
+              "rank": 2,
+              "source": "ops:redis_latency_and_connections",
+              "chunkId": 8,
+              "relevant": false
+            },
+            {
+              "rank": 3,
+              "source": "ops:kubernetes_pod_health",
+              "chunkId": 18,
+              "relevant": false
+            },
+            {
+              "rank": 4,
+              "source": "ops:deployment_regression",
+              "chunkId": 2,
+              "relevant": false
+            }
+          ],
+          "id": "holdout_policy-06",
+          "category": "holdout_policy",
+          "expectedSources": [
+            "ops:cpu_memory_disk_pressure"
+          ]
+        },
+        {
+          "recall": 1.0,
+          "mrr": 0.25,
+          "ndcg": 0.43067655807339306,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:deployment_regression",
+              "chunkId": 2,
+              "relevant": false
+            },
+            {
+              "rank": 2,
+              "source": "ops:cpu_memory_disk_pressure",
+              "chunkId": 1,
+              "relevant": false
+            },
+            {
+              "rank": 3,
+              "source": "ops:http_5xx_and_latency",
+              "chunkId": 4,
+              "relevant": false
+            },
+            {
+              "rank": 4,
+              "source": "ops:kubernetes_pod_health",
+              "chunkId": 18,
+              "relevant": true
+            }
+          ],
+          "id": "holdout_policy-07",
+          "category": "holdout_policy",
+          "expectedSources": [
+            "ops:kubernetes_pod_health"
+          ]
+        },
+        {
+          "recall": 1.0,
+          "mrr": 1.0,
+          "ndcg": 1.0,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:tls_certificate_expiry",
+              "chunkId": 33,
+              "relevant": true
+            },
+            {
+              "rank": 2,
+              "source": "ops:dns_tcp_connectivity",
+              "chunkId": 3,
+              "relevant": false
+            },
+            {
+              "rank": 3,
+              "source": "ops:security_incident_preservation",
+              "chunkId": 27,
+              "relevant": false
+            },
+            {
+              "rank": 4,
+              "source": "ops:load_balancer_health",
+              "chunkId": 21,
+              "relevant": false
+            }
+          ],
+          "id": "holdout_policy-08",
+          "category": "holdout_policy",
+          "expectedSources": [
+            "ops:tls_certificate_expiry"
+          ]
+        },
+        {
+          "recall": 1.0,
+          "mrr": 1.0,
+          "ndcg": 1.0,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:message_queue_backlog",
+              "chunkId": 24,
+              "relevant": true
+            },
+            {
+              "rank": 2,
+              "source": "ops:cpu_memory_disk_pressure",
+              "chunkId": 1,
+              "relevant": false
+            },
+            {
+              "rank": 3,
+              "source": "ops:mysql_connection_pool",
+              "chunkId": 5,
+              "relevant": false
+            },
+            {
+              "rank": 4,
+              "source": "ops:redis_latency_and_connections",
+              "chunkId": 8,
+              "relevant": false
+            }
+          ],
+          "id": "holdout_policy-09",
+          "category": "holdout_policy",
+          "expectedSources": [
+            "ops:message_queue_backlog"
+          ]
+        },
+        {
+          "recall": 1.0,
+          "mrr": 1.0,
+          "ndcg": 1.0,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:backup_restore_validation",
+              "chunkId": 11,
+              "relevant": true
+            },
+            {
+              "rank": 2,
+              "source": "ops:service_slo_and_recovery",
+              "chunkId": 30,
+              "relevant": false
+            },
+            {
+              "rank": 3,
+              "source": "ops:deployment_regression",
+              "chunkId": 2,
+              "relevant": false
+            },
+            {
+              "rank": 4,
+              "source": "ops:load_balancer_health",
+              "chunkId": 21,
+              "relevant": false
+            }
+          ],
+          "id": "holdout_policy-10",
+          "category": "holdout_policy",
+          "expectedSources": [
+            "ops:backup_restore_validation"
+          ]
+        },
+        {
+          "recall": 1.0,
+          "mrr": 1.0,
+          "ndcg": 1.0,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:load_balancer_health",
+              "chunkId": 21,
+              "relevant": true
+            },
+            {
+              "rank": 2,
+              "source": "ops:dns_tcp_connectivity",
+              "chunkId": 3,
+              "relevant": false
+            },
+            {
+              "rank": 3,
+              "source": "ops:mysql_connection_pool",
+              "chunkId": 5,
+              "relevant": false
+            },
+            {
+              "rank": 4,
+              "source": "ops:redis_latency_and_connections",
+              "chunkId": 7,
+              "relevant": false
+            }
+          ],
+          "id": "holdout_policy-11",
+          "category": "holdout_policy",
+          "expectedSources": [
+            "ops:load_balancer_health"
+          ]
+        },
+        {
+          "recall": 1.0,
+          "mrr": 1.0,
+          "ndcg": 1.0,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:security_incident_preservation",
+              "chunkId": 27,
+              "relevant": true
+            },
+            {
+              "rank": 2,
+              "source": "ops:mysql_connection_pool",
+              "chunkId": 5,
+              "relevant": false
+            },
+            {
+              "rank": 3,
+              "source": "ops:cpu_memory_disk_pressure",
+              "chunkId": 1,
+              "relevant": false
+            },
+            {
+              "rank": 4,
+              "source": "ops:redis_latency_and_connections",
+              "chunkId": 7,
+              "relevant": false
+            }
+          ],
+          "id": "holdout_policy-12",
+          "category": "holdout_policy",
+          "expectedSources": [
+            "ops:security_incident_preservation"
+          ]
+        },
+        {
+          "recall": 1.0,
+          "mrr": 1.0,
+          "ndcg": 1.0,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:dependency_timeout_cascade",
+              "chunkId": 14,
+              "relevant": true
+            },
+            {
+              "rank": 2,
+              "source": "ops:http_5xx_and_latency",
+              "chunkId": 4,
+              "relevant": false
+            },
+            {
+              "rank": 3,
+              "source": "ops:deployment_regression",
+              "chunkId": 2,
+              "relevant": false
+            },
+            {
+              "rank": 4,
+              "source": "ops:mysql_connection_pool",
+              "chunkId": 5,
+              "relevant": false
+            }
+          ],
+          "id": "holdout_policy-13",
+          "category": "holdout_policy",
+          "expectedSources": [
+            "ops:dependency_timeout_cascade"
+          ]
+        },
+        {
+          "recall": 1.0,
+          "mrr": 1.0,
+          "ndcg": 1.0,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:service_slo_and_recovery",
+              "chunkId": 30,
+              "relevant": true
+            },
+            {
+              "rank": 2,
+              "source": "ops:mysql_connection_pool",
+              "chunkId": 6,
+              "relevant": false
+            },
+            {
+              "rank": 3,
+              "source": "ops:cpu_memory_disk_pressure",
+              "chunkId": 1,
+              "relevant": false
+            },
+            {
+              "rank": 4,
+              "source": "ops:message_queue_backlog",
+              "chunkId": 24,
+              "relevant": false
+            }
+          ],
+          "id": "holdout_policy-14",
+          "category": "holdout_policy",
+          "expectedSources": [
+            "ops:service_slo_and_recovery"
+          ]
+        },
+        {
+          "recall": 1.0,
+          "mrr": 1.0,
+          "ndcg": 0.9197207891481876,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:mysql_connection_pool",
+              "chunkId": 6,
+              "relevant": true
+            },
+            {
+              "rank": 2,
+              "source": "ops:cpu_memory_disk_pressure",
+              "chunkId": 1,
+              "relevant": false
+            },
+            {
+              "rank": 3,
+              "source": "ops:http_5xx_and_latency",
+              "chunkId": 4,
+              "relevant": true
+            },
+            {
+              "rank": 4,
+              "source": "ops:redis_latency_and_connections",
+              "chunkId": 7,
+              "relevant": false
+            }
+          ],
+          "id": "holdout_cross-01",
+          "category": "holdout_cross",
+          "expectedSources": [
+            "ops:mysql_connection_pool",
+            "ops:http_5xx_and_latency"
+          ]
+        },
+        {
+          "recall": 0.5,
+          "mrr": 0.25,
+          "ndcg": 0.2640681225725909,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:mysql_connection_pool",
+              "chunkId": 5,
+              "relevant": false
+            },
+            {
+              "rank": 2,
+              "source": "ops:cpu_memory_disk_pressure",
+              "chunkId": 1,
+              "relevant": false
+            },
+            {
+              "rank": 3,
+              "source": "ops:http_5xx_and_latency",
+              "chunkId": 4,
+              "relevant": false
+            },
+            {
+              "rank": 4,
+              "source": "ops:redis_latency_and_connections",
+              "chunkId": 7,
+              "relevant": true
+            }
+          ],
+          "id": "holdout_cross-02",
+          "category": "holdout_cross",
+          "expectedSources": [
+            "ops:redis_latency_and_connections",
+            "ops:dependency_timeout_cascade"
+          ]
+        },
+        {
+          "recall": 1.0,
+          "mrr": 1.0,
+          "ndcg": 1.0,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:dns_tcp_connectivity",
+              "chunkId": 3,
+              "relevant": true
+            },
+            {
+              "rank": 2,
+              "source": "ops:tls_certificate_expiry",
+              "chunkId": 33,
+              "relevant": true
+            },
+            {
+              "rank": 3,
+              "source": "ops:http_5xx_and_latency",
+              "chunkId": 4,
+              "relevant": false
+            },
+            {
+              "rank": 4,
+              "source": "ops:load_balancer_health",
+              "chunkId": 21,
+              "relevant": false
+            }
+          ],
+          "id": "holdout_cross-03",
+          "category": "holdout_cross",
+          "expectedSources": [
+            "ops:dns_tcp_connectivity",
+            "ops:tls_certificate_expiry"
+          ]
+        },
+        {
+          "recall": 1.0,
+          "mrr": 1.0,
+          "ndcg": 1.0,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:deployment_regression",
+              "chunkId": 2,
+              "relevant": true
+            },
+            {
+              "rank": 2,
+              "source": "ops:kubernetes_pod_health",
+              "chunkId": 18,
+              "relevant": true
+            },
+            {
+              "rank": 3,
+              "source": "ops:cpu_memory_disk_pressure",
+              "chunkId": 1,
+              "relevant": false
+            },
+            {
+              "rank": 4,
+              "source": "ops:service_slo_and_recovery",
+              "chunkId": 29,
+              "relevant": false
+            }
+          ],
+          "id": "holdout_cross-04",
+          "category": "holdout_cross",
+          "expectedSources": [
+            "ops:deployment_regression",
+            "ops:kubernetes_pod_health"
+          ]
+        },
+        {
+          "recall": 1.0,
+          "mrr": 1.0,
+          "ndcg": 1.0,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:cpu_memory_disk_pressure",
+              "chunkId": 1,
+              "relevant": true
+            },
+            {
+              "rank": 2,
+              "source": "ops:kubernetes_pod_health",
+              "chunkId": 18,
+              "relevant": true
+            },
+            {
+              "rank": 3,
+              "source": "ops:redis_latency_and_connections",
+              "chunkId": 7,
+              "relevant": false
+            },
+            {
+              "rank": 4,
+              "source": "ops:deployment_regression",
+              "chunkId": 2,
+              "relevant": false
+            }
+          ],
+          "id": "holdout_cross-05",
+          "category": "holdout_cross",
+          "expectedSources": [
+            "ops:cpu_memory_disk_pressure",
+            "ops:kubernetes_pod_health"
+          ]
+        },
+        {
+          "recall": 1.0,
+          "mrr": 1.0,
+          "ndcg": 0.9197207891481876,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:load_balancer_health",
+              "chunkId": 21,
+              "relevant": true
+            },
+            {
+              "rank": 2,
+              "source": "ops:dns_tcp_connectivity",
+              "chunkId": 3,
+              "relevant": false
+            },
+            {
+              "rank": 3,
+              "source": "ops:http_5xx_and_latency",
+              "chunkId": 4,
+              "relevant": true
+            },
+            {
+              "rank": 4,
+              "source": "ops:deployment_regression",
+              "chunkId": 2,
+              "relevant": false
+            }
+          ],
+          "id": "holdout_cross-06",
+          "category": "holdout_cross",
+          "expectedSources": [
+            "ops:http_5xx_and_latency",
+            "ops:load_balancer_health"
+          ]
+        },
+        {
+          "recall": 1.0,
+          "mrr": 1.0,
+          "ndcg": 0.8772153153380493,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:message_queue_backlog",
+              "chunkId": 24,
+              "relevant": true
+            },
+            {
+              "rank": 2,
+              "source": "ops:cpu_memory_disk_pressure",
+              "chunkId": 1,
+              "relevant": false
+            },
+            {
+              "rank": 3,
+              "source": "ops:http_5xx_and_latency",
+              "chunkId": 4,
+              "relevant": false
+            },
+            {
+              "rank": 4,
+              "source": "ops:dependency_timeout_cascade",
+              "chunkId": 12,
+              "relevant": true
+            }
+          ],
+          "id": "holdout_cross-07",
+          "category": "holdout_cross",
+          "expectedSources": [
+            "ops:message_queue_backlog",
+            "ops:dependency_timeout_cascade"
+          ]
+        },
+        {
+          "recall": 1.0,
+          "mrr": 1.0,
+          "ndcg": 1.0,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:backup_restore_validation",
+              "chunkId": 11,
+              "relevant": true
+            },
+            {
+              "rank": 2,
+              "source": "ops:security_incident_preservation",
+              "chunkId": 27,
+              "relevant": true
+            },
+            {
+              "rank": 3,
+              "source": "ops:redis_latency_and_connections",
+              "chunkId": 8,
+              "relevant": false
+            },
+            {
+              "rank": 4,
+              "source": "ops:deployment_regression",
+              "chunkId": 2,
+              "relevant": false
+            }
+          ],
+          "id": "holdout_cross-08",
+          "category": "holdout_cross",
+          "expectedSources": [
+            "ops:backup_restore_validation",
+            "ops:security_incident_preservation"
+          ]
+        },
+        {
+          "recall": 0.5,
+          "mrr": 1.0,
+          "ndcg": 0.6131471927654584,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:message_queue_backlog",
+              "chunkId": 24,
+              "relevant": true
+            },
+            {
+              "rank": 2,
+              "source": "ops:redis_latency_and_connections",
+              "chunkId": 8,
+              "relevant": false
+            },
+            {
+              "rank": 3,
+              "source": "ops:http_5xx_and_latency",
+              "chunkId": 4,
+              "relevant": false
+            },
+            {
+              "rank": 4,
+              "source": "ops:deployment_regression",
+              "chunkId": 2,
+              "relevant": false
+            }
+          ],
+          "id": "holdout_cross-09",
+          "category": "holdout_cross",
+          "expectedSources": [
+            "ops:service_slo_and_recovery",
+            "ops:message_queue_backlog"
+          ]
+        },
+        {
+          "recall": 1.0,
+          "mrr": 1.0,
+          "ndcg": 1.0,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:dns_tcp_connectivity",
+              "chunkId": 3,
+              "relevant": true
+            },
+            {
+              "rank": 2,
+              "source": "ops:load_balancer_health",
+              "chunkId": 21,
+              "relevant": true
+            },
+            {
+              "rank": 3,
+              "source": "ops:mysql_connection_pool",
+              "chunkId": 6,
+              "relevant": false
+            },
+            {
+              "rank": 4,
+              "source": "ops:redis_latency_and_connections",
+              "chunkId": 8,
+              "relevant": false
+            }
+          ],
+          "id": "holdout_cross-10",
+          "category": "holdout_cross",
+          "expectedSources": [
+            "ops:load_balancer_health",
+            "ops:dns_tcp_connectivity"
+          ]
+        },
+        {
+          "recall": 1.0,
+          "mrr": 1.0,
+          "ndcg": 1.0,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:tls_certificate_expiry",
+              "chunkId": 33,
+              "relevant": true
+            },
+            {
+              "rank": 2,
+              "source": "ops:security_incident_preservation",
+              "chunkId": 27,
+              "relevant": true
+            },
+            {
+              "rank": 3,
+              "source": "ops:deployment_regression",
+              "chunkId": 2,
+              "relevant": false
+            },
+            {
+              "rank": 4,
+              "source": "ops:dns_tcp_connectivity",
+              "chunkId": 3,
+              "relevant": false
+            }
+          ],
+          "id": "holdout_cross-11",
+          "category": "holdout_cross",
+          "expectedSources": [
+            "ops:tls_certificate_expiry",
+            "ops:security_incident_preservation"
+          ]
+        },
+        {
+          "recall": 1.0,
+          "mrr": 1.0,
+          "ndcg": 1.0,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:deployment_regression",
+              "chunkId": 2,
+              "relevant": true
+            },
+            {
+              "rank": 2,
+              "source": "ops:backup_restore_validation",
+              "chunkId": 11,
+              "relevant": true
+            },
+            {
+              "rank": 3,
+              "source": "ops:mysql_connection_pool",
+              "chunkId": 6,
+              "relevant": false
+            },
+            {
+              "rank": 4,
+              "source": "ops:redis_latency_and_connections",
+              "chunkId": 8,
+              "relevant": false
+            }
+          ],
+          "id": "holdout_cross-12",
+          "category": "holdout_cross",
+          "expectedSources": [
+            "ops:deployment_regression",
+            "ops:backup_restore_validation"
+          ]
+        },
+        {
+          "recall": 1.0,
+          "mrr": 1.0,
+          "ndcg": 1.0,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:mysql_connection_pool",
+              "chunkId": 5,
+              "relevant": true
+            },
+            {
+              "rank": 2,
+              "source": "ops:dependency_timeout_cascade",
+              "chunkId": 14,
+              "relevant": true
+            },
+            {
+              "rank": 3,
+              "source": "ops:http_5xx_and_latency",
+              "chunkId": 4,
+              "relevant": false
+            },
+            {
+              "rank": 4,
+              "source": "ops:redis_latency_and_connections",
+              "chunkId": 7,
+              "relevant": false
+            }
+          ],
+          "id": "holdout_cross-13",
+          "category": "holdout_cross",
+          "expectedSources": [
+            "ops:mysql_connection_pool",
+            "ops:dependency_timeout_cascade"
+          ]
+        },
+        {
+          "recall": 1.0,
+          "mrr": 1.0,
+          "ndcg": 1.0,
+          "hit": true,
+          "results": [
+            {
+              "rank": 1,
+              "source": "ops:http_5xx_and_latency",
+              "chunkId": 4,
+              "relevant": true
+            },
+            {
+              "rank": 2,
+              "source": "ops:service_slo_and_recovery",
+              "chunkId": 30,
+              "relevant": true
+            },
+            {
+              "rank": 3,
+              "source": "ops:mysql_connection_pool",
+              "chunkId": 6,
+              "relevant": false
+            },
+            {
+              "rank": 4,
+              "source": "ops:redis_latency_and_connections",
+              "chunkId": 8,
+              "relevant": false
+            }
+          ],
+          "id": "holdout_cross-14",
+          "category": "holdout_cross",
+          "expectedSources": [
+            "ops:service_slo_and_recovery",
+            "ops:http_5xx_and_latency"
+          ]
+        }
+      ]
+    }
+  }
+}

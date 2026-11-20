@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101827">
+  <title>NexusOps · 研发运维智能平台</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/ops.css?v=1.0.0">
+</head>
+<body class="login-page">
+  <main class="login-shell">
+    <section class="login-story">
+      <div class="brand-lockup"><span class="brand-mark">N</span><span><b>NexusOps</b><small>INCIDENT INTELLIGENCE PLATFORM</small></span></div>
+      <div class="story-copy">
+        <div class="eyebrow">ENGINEERING · SRE · OPERATIONS</div>
+        <h1>让故障研判<br><em>更快一步。</em></h1>
+        <p>从监控告警接入，到多 Agent 协同分析、知识检索、人工审批与处置审计，建立可追溯的故障响应闭环。</p>
+      </div>
+      <div class="login-feature-grid">
+        <div><span>01</span><b>Multi-Agent</b><small>事件驱动协作研判</small></div>
+        <div><span>02</span><b>Hybrid RAG</b><small>运维知识证据检索</small></div>
+        <div><span>03</span><b>Governance</b><small>人工审批与执行审计</small></div>
+      </div>
+      <div class="story-foot"><span class="status-dot"></span> INCIDENT RESPONSE · CONTROLLED BY PEOPLE</div>
+    </section>
+
+    <section class="login-panel">
+      <div class="login-panel-head">
+        <div class="brand-mark compact">N</div>
+        <div><div class="eyebrow">WELCOME BACK</div><h2>登录工作台</h2></div>
+      </div>
+      <p class="muted">使用 NexusOps 运维账号继续。</p>
+      <form id="loginForm" class="login-form">
+        <label for="username">用户名</label>
+        <input id="username" name="username" autocomplete="username" placeholder="请输入用户名" required value="engineer">
+        <label for="password">密码</label>
+        <input id="password" name="password" type="password" autocomplete="current-password" placeholder="请输入密码" required>
+        <button class="btn btn-primary login-submit" type="submit">进入 NexusOps <span>↗</span></button>
+        <p id="loginState" class="form-state" aria-live="polite"></p>
+      </form>
+      <div class="login-status-row"><span id="serviceState" class="pill pill-warn">正在检查服务</span><span id="modelState" class="pill">模型状态：登录后查看</span></div>
+      <div class="demo-accounts">
+        <b>本地演示账号</b>
+        <span>管理员：admin / admin123</span>
+        <span>工程师：engineer / engineer123</span>
+        <span>值班人员：oncall / oncall123</span>
+        <small>首次启动默认账号仅供本地演示。部署前请修改所有默认密码。</small>
+      </div>
+      <div class="login-links"><a href="/docs">API 文档</a><a href="/actuator/health">服务健康</a><span>v1.0.0</span></div>
+    </section>
+  </main>
+  <script src="/app.js?v=1.0.0"></script>
+</body>
+</html>

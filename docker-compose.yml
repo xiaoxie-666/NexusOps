@@ -1,0 +1,146 @@
+name: nexusops
+
+services:
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-nexusops_root_dev}
+      MYSQL_DATABASE: nexusops
+      MYSQL_USER: nexusops
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-nexusops_dev_password}
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+    ports:
+      - "127.0.0.1:13317:3306"
+    volumes:
+      - nexusops-mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -p$${MYSQL_ROOT_PASSWORD} --silent"]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+    restart: unless-stopped
+
+  redis:
+    image: redis:7.2-alpine
+    ports:
+      - "127.0.0.1:16390:6379"
+    volumes:
+      - nexusops-redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+    restart: unless-stopped
+
+  app:
+    build: .
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      APP_NAME: ${APP_NAME:-NexusOps Incident Intelligence Platform}
+      APP_ENV: ${APP_ENV:-development}
+      SERVER_HOST: 0.0.0.0
+      SERVER_PORT: 8080
+      PYTHONUTF8: "1"
+      PYTHONIOENCODING: utf-8
+      AGENT_FRAMEWORK: ${AGENT_FRAMEWORK:-event_driven_multi_agent}
+      INCIDENT_ANALYSIS_MAX_ROUNDS: ${INCIDENT_ANALYSIS_MAX_ROUNDS:-8}
+      INCIDENT_ANALYSIS_MIN_CONFIDENCE: ${INCIDENT_ANALYSIS_MIN_CONFIDENCE:-0.55}
+      ALERT_WEBHOOK_TOKEN: ${ALERT_WEBHOOK_TOKEN:-}
+      ALERT_WEBHOOK_MAX_PAYLOAD_BYTES: ${ALERT_WEBHOOK_MAX_PAYLOAD_BYTES:-1000000}
+      INCIDENT_TOOL_QUEUE_ENABLED: ${INCIDENT_TOOL_QUEUE_ENABLED:-true}
+      INCIDENT_TOOL_POLL_INTERVAL_SECONDS: ${INCIDENT_TOOL_POLL_INTERVAL_SECONDS:-1}
+      INCIDENT_TOOL_MAX_ATTEMPTS: ${INCIDENT_TOOL_MAX_ATTEMPTS:-3}
+      INCIDENT_TOOL_RETRY_DELAY_SECONDS: ${INCIDENT_TOOL_RETRY_DELAY_SECONDS:-10}
+      ONCALL_NOTIFICATION_RECIPIENTS: ${ONCALL_NOTIFICATION_RECIPIENTS:-}
+      OPS_KNOWLEDGE_AUTO_SEED: ${OPS_KNOWLEDGE_AUTO_SEED:-true}
+      MODEL_ROUTER_ENABLED: ${MODEL_ROUTER_ENABLED:-true}
+      MODEL_FALLBACK_PROVIDER: ${MODEL_FALLBACK_PROVIDER:-mock}
+      MODEL_FALLBACK_MODEL: ${MODEL_FALLBACK_MODEL:-mock}
+      MODEL_CIRCUIT_FAILURE_THRESHOLD: ${MODEL_CIRCUIT_FAILURE_THRESHOLD:-3}
+      MODEL_CIRCUIT_RESET_SECONDS: ${MODEL_CIRCUIT_RESET_SECONDS:-30}
+      MODEL_REQUEST_TIMEOUT_SECONDS: ${MODEL_REQUEST_TIMEOUT_SECONDS:-120}
+      AI_REQUEST_TIMEOUT_SECONDS: ${AI_REQUEST_TIMEOUT_SECONDS:-120}
+      AGENT_MODEL_UNDERSTANDING_PROVIDER: ${AGENT_MODEL_UNDERSTANDING_PROVIDER:-}
+      AGENT_MODEL_UNDERSTANDING_MODEL: ${AGENT_MODEL_UNDERSTANDING_MODEL:-}
+      AGENT_MODEL_IMPACT_PROVIDER: ${AGENT_MODEL_IMPACT_PROVIDER:-}
+      AGENT_MODEL_IMPACT_MODEL: ${AGENT_MODEL_IMPACT_MODEL:-}
+      AGENT_MODEL_RESOLUTION_PROVIDER: ${AGENT_MODEL_RESOLUTION_PROVIDER:-}
+      AGENT_MODEL_RESOLUTION_MODEL: ${AGENT_MODEL_RESOLUTION_MODEL:-}
+      AGENT_MODEL_RESOLUTION_TEMPERATURE: ${AGENT_MODEL_RESOLUTION_TEMPERATURE:-0.2}
+      AGENT_MODEL_RESOLUTION_MAX_TOKENS: ${AGENT_MODEL_RESOLUTION_MAX_TOKENS:-1024}
+      AGENT_MODEL_GUARD_PROVIDER: ${AGENT_MODEL_GUARD_PROVIDER:-}
+      AGENT_MODEL_GUARD_MODEL: ${AGENT_MODEL_GUARD_MODEL:-}
+      AI_PROVIDER: ${AI_PROVIDER:-mock}
+      AI_TEMPERATURE: ${AI_TEMPERATURE:-0.2}
+      AI_MAX_TOKENS: ${AI_MAX_TOKENS:-768}
+      OLLAMA_BASE_URL: ${OLLAMA_BASE_URL:-http://host.docker.internal:11434}
+      OLLAMA_MODEL: ${OLLAMA_MODEL:-qwen2.5:3b-instruct-q4_K_M}
+      OLLAMA_EMBEDDING_MODEL: ${OLLAMA_EMBEDDING_MODEL:-bge-m3:latest}
+      KNOWLEDGE_EMBEDDING_PROVIDER: ${KNOWLEDGE_EMBEDDING_PROVIDER:-ollama}
+      OPENAI_BASE_URL: ${OPENAI_BASE_URL:-https://api.openai.com/v1}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      OPENAI_MODEL: ${OPENAI_MODEL:-gpt-4o-mini}
+      OPENAI_EMBEDDING_MODEL: ${OPENAI_EMBEDDING_MODEL:-text-embedding-3-small}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-nexusops_root_dev}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-nexusops_dev_password}
+      DATABASE_URL: mysql+pymysql://nexusops:${MYSQL_PASSWORD:-nexusops_dev_password}@mysql:3306/nexusops?charset=utf8mb4
+      REDIS_URL: redis://redis:6379/0
+      INCIDENT_CONTEXT_CACHE_ENABLED: ${INCIDENT_CONTEXT_CACHE_ENABLED:-true}
+      INCIDENT_CONTEXT_CACHE_TTL_SECONDS: ${INCIDENT_CONTEXT_CACHE_TTL_SECONDS:-3600}
+      INCIDENT_CONTEXT_SUMMARY_MAX_CHARS: ${INCIDENT_CONTEXT_SUMMARY_MAX_CHARS:-500}
+      INCIDENT_CONTEXT_TOKEN_BUDGET: ${INCIDENT_CONTEXT_TOKEN_BUDGET:-2300}
+      KNOWLEDGE_VECTOR_ENABLED: ${KNOWLEDGE_VECTOR_ENABLED:-false}
+      KNOWLEDGE_VECTOR_REQUIRED: ${KNOWLEDGE_VECTOR_REQUIRED:-false}
+      KNOWLEDGE_HYBRID_VECTOR_WEIGHT: ${KNOWLEDGE_HYBRID_VECTOR_WEIGHT:-0.65}
+      KNOWLEDGE_HYBRID_BM25_WEIGHT: ${KNOWLEDGE_HYBRID_BM25_WEIGHT:-0.35}
+      KNOWLEDGE_RERANK_ENABLED: ${KNOWLEDGE_RERANK_ENABLED:-false}
+      KNOWLEDGE_MAX_CHUNKS_PER_SOURCE: ${KNOWLEDGE_MAX_CHUNKS_PER_SOURCE:-1}
+      EMBEDDING_TIMEOUT_SECONDS: ${EMBEDDING_TIMEOUT_SECONDS:-120}
+      CHROMA_PERSIST_DIR: ${CHROMA_PERSIST_DIR:-/app/data/nexusops-chroma}
+      CHROMA_SNAPSHOT_DIR: ${CHROMA_SNAPSHOT_DIR:-/app/data/nexusops-chroma-snapshots}
+      CHROMA_COLLECTION_NAME: ${CHROMA_COLLECTION_NAME:-nexusops_knowledge}
+      EXCEL_PATH: ${EXCEL_PATH:-/app/data/nexusops-incident-ledger.xlsx}
+      ALERT_EMAIL_DELIVERY_MODE: ${ALERT_EMAIL_DELIVERY_MODE:-log}
+      ALERT_EMAIL_SUBJECT_PREFIX: ${ALERT_EMAIL_SUBJECT_PREFIX:-[NexusOps 事件预警]}
+      SMTP_HOST: ${SMTP_HOST:-}
+      SMTP_PORT: ${SMTP_PORT:-587}
+      SMTP_USERNAME: ${SMTP_USERNAME:-}
+      SMTP_PASSWORD: ${SMTP_PASSWORD:-}
+      SMTP_USE_TLS: ${SMTP_USE_TLS:-true}
+      SMTP_USE_SSL: ${SMTP_USE_SSL:-false}
+      SMTP_TIMEOUT_SECONDS: ${SMTP_TIMEOUT_SECONDS:-10}
+      ALERT_EMAIL_FROM: ${ALERT_EMAIL_FROM:-}
+      ALERT_EMAIL_TO: ${ALERT_EMAIL_TO:-}
+      BOOTSTRAP_ADMIN_PASSWORD: ${BOOTSTRAP_ADMIN_PASSWORD:-admin123}
+      BOOTSTRAP_ENGINEER_PASSWORD: ${BOOTSTRAP_ENGINEER_PASSWORD:-engineer123}
+      BOOTSTRAP_ONCALL_PASSWORD: ${BOOTSTRAP_ONCALL_PASSWORD:-oncall123}
+      INCIDENT_KEY_PREFIX: ${INCIDENT_KEY_PREFIX:-INC}
+      INCIDENT_DEFAULT_SEVERITY: ${INCIDENT_DEFAULT_SEVERITY:-P2}
+      INCIDENT_MAX_PAGE_SIZE: ${INCIDENT_MAX_PAGE_SIZE:-100}
+    ports:
+      - "127.0.0.1:18081:8080"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - ./data:/app/data
+      - ./skills:/app/skills:ro
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8080/actuator/health', timeout=3)"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 30s
+    restart: unless-stopped
+
+volumes:
+  nexusops-mysql-data:
+    name: nexusops_mysql_data
+  nexusops-redis-data:
+    name: nexusops_redis_data

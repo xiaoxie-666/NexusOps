@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101827">
+  <title>NexusOps · 运维工作台</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/ops.css?v=1.0.1">
+</head>
+<body class="app-page">
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand-lockup sidebar-brand" href="/ops.html"><span class="brand-mark">N</span><span><b>NexusOps</b><small>OPS INTELLIGENCE</small></span></a>
+      <div class="workspace-label">WORKSPACE</div>
+      <nav class="side-nav" aria-label="主导航">
+        <button class="nav-item active" data-view="overview"><span class="nav-icon">◫</span>总览</button>
+        <button class="nav-item" data-view="incidents"><span class="nav-icon">◈</span>故障事件 <span id="navIncidentCount" class="nav-count">—</span></button>
+        <button class="nav-item" data-view="alerts"><span class="nav-icon">⌁</span>监控告警</button>
+        <button class="nav-item reviewer-only" data-view="approvals"><span class="nav-icon">◇</span>人工审批 <span id="navApprovalCount" class="nav-count">—</span></button>
+        <button class="nav-item reviewer-only" data-view="tools"><span class="nav-icon">⚙</span>工具与审计</button>
+        <button class="nav-item admin-only" data-view="knowledge"><span class="nav-icon">▤</span>运维知识库</button>
+        <button class="nav-item" data-view="system"><span class="nav-icon">⌘</span>Agent 与模型</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="sidebar-health"><span class="status-dot"></span><span><b>平台服务</b><small id="sidebarHealth">连接中…</small></span></div>
+        <a href="/docs" target="_blank" rel="noreferrer" class="docs-link">API 文档 <span>↗</span></a>
+        <div class="sidebar-version">NEXUSOPS · FINAL BUILD</div>
+      </div>
+    </aside>
+
+    <main class="main-area">
+      <header class="topbar">
+        <div class="topbar-title"><span class="eyebrow" id="pageEyebrow">OPERATIONS OVERVIEW</span><h1 id="pageTitle">运行总览</h1></div>
+        <div class="topbar-actions">
+          <span id="modelPill" class="pill pill-neutral">模型状态读取中</span>
+          <button id="refreshAll" class="btn btn-soft" type="button">↻ 刷新数据</button>
+          <div class="user-menu"><span class="avatar" id="userAvatar">E</span><span><b id="activeUser">工程师</b><small id="activeRole">ROLE_ENGINEER</small></span><button id="logoutButton" class="icon-button" title="退出登录">↪</button></div>
+        </div>
+      </header>
+
+      <div id="globalError" class="global-error" hidden></div>
+
+      <section class="view active" id="view-overview">
+        <div class="welcome-row"><div><div class="eyebrow">LIVE OPERATIONS</div><h2>故障响应态势</h2><p>集中查看当前故障、告警、审批与协同处置任务。</p></div><button class="btn btn-primary" id="quickCreateIncident">＋ 新建故障</button></div>
+        <div class="metric-grid">
+          <article class="metric-card"><div class="metric-label">累计故障事件 <span>INCIDENTS</span></div><div class="metric-value" id="metricTotal">—</div><div class="metric-foot">平台记录的全部 Incident</div><div class="metric-mark blue">◈</div></article>
+          <article class="metric-card"><div class="metric-label">处理中 <span>ACTIVE</span></div><div class="metric-value" id="metricActive">—</div><div class="metric-foot">待分诊、调查及缓解中的事件</div><div class="metric-mark cyan">◷</div></article>
+          <article class="metric-card"><div class="metric-label">高优先级 <span>P0 / P1</span></div><div class="metric-value" id="metricCritical">—</div><div class="metric-foot">尚未解决的严重故障</div><div class="metric-mark red">!</div></article>
+          <article class="metric-card"><div class="metric-label">待人工审批 <span>APPROVAL</span></div><div class="metric-value" id="metricApprovals">—</div><div class="metric-foot">等待管理员或值班人员审核</div><div class="metric-mark amber">◇</div></article>
+          <article class="metric-card"><div class="metric-label">触发中告警 <span>FIRING</span></div><div class="metric-value" id="metricAlerts">—</div><div class="metric-foot">已接入的监控告警</div><div class="metric-mark violet">⌁</div></article>
+          <article class="metric-card"><div class="metric-label">工具队列 <span>QUEUED</span></div><div class="metric-value" id="metricJobs">—</div><div class="metric-foot">等待执行或正在执行的安全工具</div><div class="metric-mark green">⚙</div></article>
+        </div>
+        <div class="dashboard-grid">
+          <article class="panel trend-panel"><div class="panel-head"><div><div class="eyebrow">INCIDENT ACTIVITY</div><h3>近 7 日故障趋势</h3></div><span class="panel-note" id="trendTotal">—</span></div><div id="dailyTrend" class="bar-chart"><div class="empty-state">正在加载趋势…</div></div></article>
+          <article class="panel distribution-panel"><div class="panel-head"><div><div class="eyebrow">SEVERITY MIX</div><h3>故障等级分布</h3></div><span class="panel-note">ALL TIME</span></div><div id="severityDistribution" class="severity-list"><div class="empty-state">正在加载…</div></div></article>
+        </div>
+        <article class="panel"><div class="panel-head"><div><div class="eyebrow">LATEST ACTIVITY</div><h3>最近故障事件</h3></div><button class="text-button" data-go-view="incidents">查看全部 →</button></div><div id="recentIncidents" class="table-wrap"><div class="empty-state">正在加载事件…</div></div></article>
+      </section>
+
+      <section class="view" id="view-incidents">
+        <div class="section-toolbar"><div><div class="eyebrow">INCIDENT MANAGEMENT</div><h2>故障事件</h2><p>统一管理故障生命周期、研判记录和处理时间线。</p></div><button class="btn btn-primary" id="createIncidentButton">＋ 新建故障</button></div>
+        <div class="filter-bar"><input id="incidentSearch" type="search" placeholder="搜索事件编号、标题或服务…"><select id="incidentStatusFilter"><option value="">全部状态</option><option>NEW</option><option>TRIAGED</option><option>ACKNOWLEDGED</option><option>INVESTIGATING</option><option>MITIGATED</option><option>RESOLVED</option><option>CLOSED</option></select><select id="incidentSeverityFilter"><option value="">全部等级</option><option>P0</option><option>P1</option><option>P2</option><option>P3</option></select><button id="applyIncidentFilters" class="btn btn-soft">筛选</button></div>
+        <article class="panel"><div id="incidentTable" class="table-wrap"><div class="empty-state">正在加载故障事件…</div></div><div class="table-foot" id="incidentTableFoot"></div></article>
+      </section>
+
+      <section class="view" id="view-alerts">
+        <div class="section-toolbar"><div><div class="eyebrow">MONITORING INTEGRATION</div><h2>监控告警</h2><p>接收 Alertmanager、Grafana 及通用 Webhook 告警，并按指纹去重关联 Incident。</p></div><span class="pill pill-info">WEBHOOK ENABLED</span></div>
+        <div class="callout"><b>Webhook 接入地址</b><code>POST /api/webhooks/alertmanager</code><span>生产环境必须配置 ALERT_WEBHOOK_TOKEN，并通过 X-NexusOps-Webhook-Token 请求头传入。</span></div>
+        <article class="panel"><div class="panel-head"><div><div class="eyebrow">ALERT STREAM</div><h3>最近接入的告警</h3></div><button class="btn btn-soft" id="refreshAlerts">刷新</button></div><div id="alertTable" class="table-wrap"><div class="empty-state">正在加载告警…</div></div></article>
+      </section>
+
+      <section class="view" id="view-approvals">
+        <div class="section-toolbar"><div><div class="eyebrow">HUMAN-IN-THE-LOOP</div><h2>人工审批中心</h2><p>生产变更、回滚、扩容、配置修改等操作必须经过人工审核。</p></div><span class="pill pill-warn">NO AUTO REMEDIATION</span></div>
+        <div class="callout warning"><b>安全边界</b><span>审批通过仅表示授权记录已保存，不会自动执行重启、回滚、扩容、数据库切主或其他生产变更。</span></div>
+        <article class="panel"><div class="panel-head"><div><div class="eyebrow">PENDING REVIEW</div><h3>待处理审批</h3></div><button class="btn btn-soft" id="refreshApprovals">刷新</button></div><div id="approvalTable" class="table-wrap"><div class="empty-state">正在加载审批…</div></div></article>
+      </section>
+
+      <section class="view" id="view-tools">
+        <div class="section-toolbar"><div><div class="eyebrow">TOOL GOVERNANCE</div><h2>工具与审计</h2><p>查看异步工具队列、执行结果、失败重试与审计记录。</p></div><span class="pill pill-info">ALLOWLIST ONLY</span></div>
+        <div class="subsection"><div class="panel-head"><div><div class="eyebrow">ASYNC JOBS</div><h3>工具任务队列</h3></div><button class="btn btn-soft" id="refreshJobs">刷新</button></div><div id="toolJobTable" class="table-wrap"><div class="empty-state">正在加载任务…</div></div></div>
+        <div class="subsection"><div class="panel-head"><div><div class="eyebrow">APPEND-ONLY RECORDS</div><h3>工具执行审计</h3></div></div><div id="toolAuditTable" class="table-wrap"><div class="empty-state">正在加载审计…</div></div></div>
+        <div class="subsection"><div class="panel-head"><div><div class="eyebrow">DELIVERY LOG</div><h3>通知记录</h3></div></div><div id="notificationTable" class="table-wrap"><div class="empty-state">正在加载通知…</div></div></div>
+      </section>
+
+      <section class="view" id="view-knowledge">
+        <div class="section-toolbar"><div><div class="eyebrow">OPERATIONAL KNOWLEDGE</div><h2>运维知识库</h2><p>维护 Runbook、知识来源状态与 Chroma 向量索引。</p></div><span class="pill pill-info">HYBRID RAG</span></div>
+        <div class="knowledge-actions"><form id="knowledgeUploadForm" class="upload-form"><label for="knowledgeFile">导入知识文档（PDF / Markdown / TXT）</label><div class="upload-controls"><input id="knowledgeFile" type="file" accept=".pdf,.md,.markdown,.txt,application/pdf,text/markdown,text/plain" required><button class="btn btn-primary" type="submit">上传并入库</button></div><small id="knowledgeUploadState">上传后写入 MySQL 分块；向量索引可在 Embedding 服务就绪后重建。</small></form><div class="knowledge-buttons"><button class="btn btn-soft" id="rebuildVector">重建向量索引</button><button class="btn btn-soft" id="backupVector">备份向量索引</button></div></div>
+        <div class="knowledge-status-grid" id="knowledgeStatusGrid"><div class="metric-card"><div class="metric-label">知识分块</div><div class="metric-value">—</div></div></div>
+        <article class="panel"><div class="panel-head"><div><div class="eyebrow">SOURCE GOVERNANCE</div><h3>知识来源与版本</h3></div><span class="panel-note" id="knowledgeSourceCount">—</span></div><div id="knowledgeSources" class="table-wrap"><div class="empty-state">正在加载知识来源…</div></div></article>
+        <article class="panel"><div class="panel-head"><div><div class="eyebrow">STANDARD SKILLS</div><h3>运维 Skills</h3></div></div><div id="opsSkills" class="skill-grid"><div class="empty-state">正在加载 Skills…</div></div></article>
+      </section>
+
+      <section class="view" id="view-system">
+        <div class="section-toolbar"><div><div class="eyebrow">RUNTIME OBSERVABILITY</div><h2>Agent 与模型</h2><p>查看当前 Agent 编排、模型路由、熔断状态和运行配置。</p></div><button class="btn btn-soft" id="refreshSystem">刷新状态</button></div>
+        <div id="systemOverview" class="system-grid"><div class="empty-state">正在读取运行状态…</div></div>
+        <article class="panel"><div class="panel-head"><div><div class="eyebrow">SPECIALIST AGENTS</div><h3>专业 Agent 状态</h3></div></div><div id="agentList" class="agent-list"><div class="empty-state">正在加载…</div></div></article>
+        <article class="panel"><div class="panel-head"><div><div class="eyebrow">MODEL ROUTER</div><h3>模型路由与熔断</h3></div></div><pre id="modelRouterDetails" class="json-view">正在加载…</pre></article>
+      </section>
+    </main>
+  </div>
+
+  <dialog id="createIncidentDialog" class="modal-dialog">
+    <form id="createIncidentForm" class="modal-card">
+      <div class="modal-head"><div><div class="eyebrow">NEW INCIDENT</div><h2>创建故障事件</h2></div><button class="icon-button" type="button" data-close-dialog="createIncidentDialog">×</button></div>
+      <div class="form-grid">
+        <label class="span-2">事件标题<input name="title" required minlength="3" maxlength="200" placeholder="例如：订单服务出现大量 HTTP 502"></label>
+        <label>服务名称<input name="serviceName" required maxlength="128" placeholder="order-service"></label>
+        <label>环境<select name="environment"><option>PRODUCTION</option><option>STAGING</option><option>TEST</option><option>DEVELOPMENT</option><option selected>UNKNOWN</option></select></label>
+        <label>故障类别<select name="category"><option>UNKNOWN</option><option>DATABASE</option><option>CACHE</option><option>API</option><option>NETWORK</option><option>DEPLOYMENT</option><option>RESOURCE</option><option>SECURITY</option><option>MIDDLEWARE</option></select></label>
+        <label>优先级<select name="severity"><option>P0</option><option>P1</option><option selected>P2</option><option>P3</option></select></label>
+        <label class="span-2">故障描述<textarea name="description" rows="4" required minlength="5" maxlength="20000" placeholder="描述发生时间、错误现象、影响范围和已观察到的指标…"></textarea></label>
+        <label>负责人<input name="assignee" maxlength="128" value="unassigned"></label>
+        <label>影响范围<input name="impactScope" maxlength="8000" placeholder="受影响的用户、接口或业务…"></label>
+      </div>
+      <div class="modal-actions"><span id="createIncidentState" class="form-state"></span><button type="button" class="btn btn-soft" data-close-dialog="createIncidentDialog">取消</button><button type="submit" class="btn btn-primary">创建事件</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="incidentDetailDialog" class="modal-dialog detail-dialog">
+    <div class="modal-card detail-card">
+      <div class="modal-head"><div><div class="eyebrow" id="detailEyebrow">INCIDENT DETAIL</div><h2 id="detailTitle">故障详情</h2><p id="detailSub" class="muted"></p></div><button class="icon-button" type="button" data-close-dialog="incidentDetailDialog">×</button></div>
+      <div id="incidentDetailContent" class="detail-content"><div class="empty-state">正在加载…</div></div>
+    </div>
+  </dialog>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="/ops.js?v=1.0.1"></script>
+</body>
+</html>

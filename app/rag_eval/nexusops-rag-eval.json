@@ -1,0 +1,16 @@
+[
+  {"id":"mysql-connection-pool","question":"订单服务出现 MySQL connection timeout 和连接池等待，应该先检查哪些指标？","expectedSources":["ops:mysql_connection_pool"],"expectedTerms":["Threads_connected","connection-pool","pool timeout","connection errors"]},
+  {"id":"redis-eviction","question":"Redis 内存持续升高并出现 key eviction，如何区分内存压力和连接问题？","expectedSources":["ops:redis_latency_and_connections"],"expectedTerms":["connected_clients","evictions","memory usage","blocked_clients"]},
+  {"id":"api-5xx","question":"API 最近 5xx 增多且 P99 延迟升高，如何定位故障发生在哪一跳？","expectedSources":["ops:http_5xx_and_latency"],"expectedTerms":["P95/P99","request ID","downstream dependency","error rate"]},
+  {"id":"network-dns-tls","question":"客户端报告 DNS 解析失败或 TLS handshake error，如何分层排查？","expectedSources":["ops:dns_tcp_connectivity"],"expectedTerms":["DNS","TCP handshake","TLS handshake","SNI"]},
+  {"id":"deployment-regression","question":"新版本发布后错误率上升，如何确认是否为部署回归并制定回滚验证条件？","expectedSources":["ops:deployment_regression"],"expectedTerms":["last known-good","image digest","readiness","rollback preconditions"]},
+  {"id":"resource-oom","question":"容器出现 OOMKilled、CPU throttling 和磁盘压力时需要收集什么证据？","expectedSources":["ops:cpu_memory_disk_pressure"],"expectedTerms":["OOM","CPU throttling","inode","I/O latency"]},
+  {"id":"kubernetes-crashloop","question":"Kubernetes Pod 进入 CrashLoopBackOff，应先查看哪些事件、退出码和探针信息？","expectedSources":["ops:kubernetes_pod_health"],"expectedTerms":["CrashLoopBackOff","last termination reason","liveness probe","OOMKilled"]},
+  {"id":"tls-expiry","question":"证书过期或证书链错误导致 TLS 握手失败，如何判断是边缘节点还是源站证书问题？","expectedSources":["ops:tls_certificate_expiry"],"expectedTerms":["SAN","certificate chain","SNI","certificate fingerprint"]},
+  {"id":"queue-backlog","question":"消息队列 backlog 和 consumer lag 持续增长，怎么判断是生产端变快还是消费端变慢？","expectedSources":["ops:message_queue_backlog"],"expectedTerms":["consumer lag","ingress and egress rates","dead-letter","poison messages"]},
+  {"id":"backup-restore","question":"数据库恢复前如何验证备份完整性、恢复点和 RPO/RTO？","expectedSources":["ops:backup_restore_validation"],"expectedTerms":["checksum","recovery point objective","restore-test","retention policy"]},
+  {"id":"load-balancer-502","question":"网关返回 502、503、504，如何区分负载均衡器、健康检查和后端服务故障？","expectedSources":["ops:load_balancer_health"],"expectedTerms":["target health","upstream timeout","request ID","health check"]},
+  {"id":"security-evidence","question":"怀疑凭据泄露或未授权访问时，如何保全证据并记录事件？","expectedSources":["ops:security_incident_preservation"],"expectedTerms":["immutable storage","audit logs","UTC","evidence owner"]},
+  {"id":"dependency-cascade","question":"下游依赖超时引起重试风暴和连接池耗尽，如何定位首个失败环节？","expectedSources":["ops:dependency_timeout_cascade"],"expectedTerms":["distributed traces","retry amplification","circuit breaker","pool wait"]},
+  {"id":"slo-recovery","question":"故障恢复后，应该依据哪些 SLI、错误预算和监控窗口判断能否关闭 Incident？","expectedSources":["ops:service_slo_and_recovery"],"expectedTerms":["error budget","P95/P99","recovery verification","residual risk"]}
+]

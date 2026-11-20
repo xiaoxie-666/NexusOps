@@ -1,0 +1,310 @@
+[
+  {
+    "id": "holdout_log-01",
+    "question": "订单创建链路出现 SQLTransientConnectionException，DB 监控在线，等待获取 JDBC 连接的线程持续增加；排查应核对哪些连接池和数据库端只读统计？",
+    "expectedSources": [
+      "ops:mysql_connection_pool"
+    ]
+  },
+  {
+    "id": "holdout_log-02",
+    "question": "购物车服务出现缓存请求耗时不稳定，客户端偶发 timeout、服务器 evicted_keys 突然增大；应优先采集哪组客户端和服务端指标？",
+    "expectedSources": [
+      "ops:redis_latency_and_connections"
+    ]
+  },
+  {
+    "id": "holdout_log-03",
+    "question": "对账 API 一部分区域的响应码从 200 变成 502 和 504，同时 P99 升高；如何用请求标识判断首次失败的链路节点？",
+    "expectedSources": [
+      "ops:http_5xx_and_latency"
+    ]
+  },
+  {
+    "id": "holdout_log-04",
+    "question": "应用 Pod 中解析 inventory.internal 偶尔得到 NXDOMAIN，直接对 IP 的端口探测却成功；如何划分解析问题和 TCP 问题？",
+    "expectedSources": [
+      "ops:dns_tcp_connectivity"
+    ]
+  },
+  {
+    "id": "holdout_log-05",
+    "question": "某批次镜像部署之后出现配置键缺失和 readiness 失败，旧副本正常；应先核查哪些镜像、配置、灰度版本证据？",
+    "expectedSources": [
+      "ops:deployment_regression"
+    ]
+  },
+  {
+    "id": "holdout_log-06",
+    "question": "节点磁盘剩余空间骤降，容器发生频繁 OOM kill，I/O wait 同步上涨；如何识别主要资源消耗者而不误删文件？",
+    "expectedSources": [
+      "ops:cpu_memory_disk_pressure"
+    ]
+  },
+  {
+    "id": "holdout_log-07",
+    "question": "一个工作负载先出现 FailedMount 然后进入 CrashLoopBackOff，其他副本正常；需要检查哪些 Events 和上次容器日志？",
+    "expectedSources": [
+      "ops:kubernetes_pod_health"
+    ]
+  },
+  {
+    "id": "holdout_log-08",
+    "question": "手机用户只在某个地域遇到 unknown issuer，Web 端正常；如何区分边缘证书链、中间证书和客户端信任库？",
+    "expectedSources": [
+      "ops:tls_certificate_expiry"
+    ]
+  },
+  {
+    "id": "holdout_log-09",
+    "question": "异步订单 topic 的 oldest-message age 连续增长，消费组 rebalance 次数激增；怎样判断消费者故障或分区倾斜？",
+    "expectedSources": [
+      "ops:message_queue_backlog"
+    ]
+  },
+  {
+    "id": "holdout_log-10",
+    "question": "夜间备份任务显示成功，但归档校验值与清单不符；在尝试恢复之前应核实哪些完整性和恢复点证据？",
+    "expectedSources": [
+      "ops:backup_restore_validation"
+    ]
+  },
+  {
+    "id": "holdout_log-11",
+    "question": "同一 upstream pool 只有两个目标进入 unhealthy，其他可服务；如何检查 listener、目标端口、探针和实例版本差异？",
+    "expectedSources": [
+      "ops:load_balancer_health"
+    ]
+  },
+  {
+    "id": "holdout_log-12",
+    "question": "审计系统记录异常高权限登录，值班组怀疑密钥外泄；如何保全身份、审计和网络证据并控制信息访问？",
+    "expectedSources": [
+      "ops:security_incident_preservation"
+    ]
+  },
+  {
+    "id": "holdout_log-13",
+    "question": "支付调用端的重试数与排队长度同步增长，下游 P99 变慢但没有完全宕机；如何验证重试放大和熔断器状态？",
+    "expectedSources": [
+      "ops:dependency_timeout_cascade"
+    ]
+  },
+  {
+    "id": "holdout_log-14",
+    "question": "报警消失了，但错误预算仍在快速消耗，某个区域仍有慢请求；怎样判断故障恢复与关闭工单的时机？",
+    "expectedSources": [
+      "ops:service_slo_and_recovery"
+    ]
+  },
+  {
+    "id": "holdout_policy-01",
+    "question": "数据库连接故障期间，有人建议直接增大 max_connections 并终止慢事务；排查负责人应先提供哪些证据和审批条件？",
+    "expectedSources": [
+      "ops:mysql_connection_pool"
+    ]
+  },
+  {
+    "id": "holdout_policy-02",
+    "question": "缓存命中率降低时有人要求立即 FLUSHALL；为什么不应执行，哪些只读指标可用来验证缓存是否恢复？",
+    "expectedSources": [
+      "ops:redis_latency_and_connections"
+    ]
+  },
+  {
+    "id": "holdout_policy-03",
+    "question": "网关大量 504 时，是否应该无审批直接提高超时和重试次数？如何确认这种操作不会加剧下游压力？",
+    "expectedSources": [
+      "ops:http_5xx_and_latency"
+    ]
+  },
+  {
+    "id": "holdout_policy-04",
+    "question": "应用跨区连接失败，工程师想修改防火墙和 DNS 记录；进行任何变更前应采集什么网络及解析证据？",
+    "expectedSources": [
+      "ops:dns_tcp_connectivity"
+    ]
+  },
+  {
+    "id": "holdout_policy-05",
+    "question": "一次数据库 schema 变更后计划回滚应用镜像；为什么需要先确认新旧版本兼容性和后台任务状态？",
+    "expectedSources": [
+      "ops:deployment_regression"
+    ]
+  },
+  {
+    "id": "holdout_policy-06",
+    "question": "磁盘告警期间有人提议直接删除容器日志；先应该怎样定位文件增长来源并验证业务恢复？",
+    "expectedSources": [
+      "ops:cpu_memory_disk_pressure"
+    ]
+  },
+  {
+    "id": "holdout_policy-07",
+    "question": "副本启动不起来，运维打算批量重启；如何通过上次终止状态、探针和调度事件决定下一步？",
+    "expectedSources": [
+      "ops:kubernetes_pod_health"
+    ]
+  },
+  {
+    "id": "holdout_policy-08",
+    "question": "需要轮换边缘 TLS 凭据，但多个节点证书可能不同；更改之前应如何收集 SNI、SAN、指纹和有效期？",
+    "expectedSources": [
+      "ops:tls_certificate_expiry"
+    ]
+  },
+  {
+    "id": "holdout_policy-09",
+    "question": "消费堆积时有人建议清空队列并重置 offset；如何评估数据丢失和重复处理风险，哪些指标需要先收集？",
+    "expectedSources": [
+      "ops:message_queue_backlog"
+    ]
+  },
+  {
+    "id": "holdout_policy-10",
+    "question": "主数据疑似受损，管理人员要求直接覆盖恢复；如何设计隔离恢复验证、校验 checksum 和评估 RPO/RTO？",
+    "expectedSources": [
+      "ops:backup_restore_validation"
+    ]
+  },
+  {
+    "id": "holdout_policy-11",
+    "question": "准备从目标池中剔除故障实例；如何证明错误来自负载均衡目标，而不是应用或网络层？",
+    "expectedSources": [
+      "ops:load_balancer_health"
+    ]
+  },
+  {
+    "id": "holdout_policy-12",
+    "question": "怀疑存在未授权访问时，为什么不能立即清理日志、停用所有账号？应如何保留证据链和记录 UTC 时间？",
+    "expectedSources": [
+      "ops:security_incident_preservation"
+    ]
+  },
+  {
+    "id": "holdout_policy-13",
+    "question": "调用链拥塞时有人主张增加最大并发和扩大重试次数；怎样证明这些变更不会放大级联故障？",
+    "expectedSources": [
+      "ops:dependency_timeout_cascade"
+    ]
+  },
+  {
+    "id": "holdout_policy-14",
+    "question": "服务健康页已恢复绿色但积压任务仍在运行；关单前要考虑哪些 SLI、观察窗口和遗留风险？",
+    "expectedSources": [
+      "ops:service_slo_and_recovery"
+    ]
+  },
+  {
+    "id": "holdout_cross-01",
+    "question": "结算服务入口持续 504，同时数据库池 active 已满、等待队列显著增长；应同时查阅哪两类诊断证据以区分入口症状与数据库瓶颈？",
+    "expectedSources": [
+      "ops:mysql_connection_pool",
+      "ops:http_5xx_and_latency"
+    ]
+  },
+  {
+    "id": "holdout_cross-02",
+    "question": "支付查询的缓存请求超时，调用方出现密集重试和线程耗尽；需要覆盖哪两个故障机制？",
+    "expectedSources": [
+      "ops:redis_latency_and_connections",
+      "ops:dependency_timeout_cascade"
+    ]
+  },
+  {
+    "id": "holdout_cross-03",
+    "question": "应用某地域连不上域名，TCP 三次握手正常但 TLS 校验失败；既要定位网络解析又要核实证书链，应查阅哪些知识？",
+    "expectedSources": [
+      "ops:dns_tcp_connectivity",
+      "ops:tls_certificate_expiry"
+    ]
+  },
+  {
+    "id": "holdout_cross-04",
+    "question": "新镜像发布后多个 Pod 反复退出，旧版本运行稳定；既要审查变更批次又要查容器终止原因，需要哪些排查资料？",
+    "expectedSources": [
+      "ops:deployment_regression",
+      "ops:kubernetes_pod_health"
+    ]
+  },
+  {
+    "id": "holdout_cross-05",
+    "question": "一个 Kubernetes 应用持续 OOMKilled，节点同时发生内存压力；要联合验证节点资源和工作负载状态，应关联哪些 Runbook？",
+    "expectedSources": [
+      "ops:cpu_memory_disk_pressure",
+      "ops:kubernetes_pod_health"
+    ]
+  },
+  {
+    "id": "holdout_cross-06",
+    "question": "用户在负载均衡入口收到 502，后端少数节点健康检查失败；需要同时检查 API 链路及目标池健康的哪些证据？",
+    "expectedSources": [
+      "ops:http_5xx_and_latency",
+      "ops:load_balancer_health"
+    ]
+  },
+  {
+    "id": "holdout_cross-07",
+    "question": "任务队列消费速度骤降，并伴随下游接口重试风暴；需要分析队列积压与跨服务超时两个方面的哪些证据？",
+    "expectedSources": [
+      "ops:message_queue_backlog",
+      "ops:dependency_timeout_cascade"
+    ]
+  },
+  {
+    "id": "holdout_cross-08",
+    "question": "遭遇疑似越权导出数据后，准备从历史快照恢复；怎样同时满足数据恢复校验和安全证据保全？",
+    "expectedSources": [
+      "ops:backup_restore_validation",
+      "ops:security_incident_preservation"
+    ]
+  },
+  {
+    "id": "holdout_cross-09",
+    "question": "错误率恢复了，但消息 backlog 还在增加、延迟持续超标；为什么还不能关单，需要查看哪两类规范？",
+    "expectedSources": [
+      "ops:service_slo_and_recovery",
+      "ops:message_queue_backlog"
+    ]
+  },
+  {
+    "id": "holdout_cross-10",
+    "question": "某区域 upstream 目标间歇 unhealthy，客户端又遇到 DNS 答案不一致；需从哪些两个维度交叉验证？",
+    "expectedSources": [
+      "ops:load_balancer_health",
+      "ops:dns_tcp_connectivity"
+    ]
+  },
+  {
+    "id": "holdout_cross-11",
+    "question": "部分网关证书突然发生非计划轮换，还伴随可疑管理员登录；怎样同步核查证书配置和安全事件证据？",
+    "expectedSources": [
+      "ops:tls_certificate_expiry",
+      "ops:security_incident_preservation"
+    ]
+  },
+  {
+    "id": "holdout_cross-12",
+    "question": "发布后执行的数据库迁移失败，准备回滚并从备份恢复；应同时验证哪些版本兼容和恢复点条件？",
+    "expectedSources": [
+      "ops:deployment_regression",
+      "ops:backup_restore_validation"
+    ]
+  },
+  {
+    "id": "holdout_cross-13",
+    "question": "下游 MySQL 查询变慢，应用的获取连接等待时间增长，重试造成上游并发放大；如何联合分析池耗尽与级联故障？",
+    "expectedSources": [
+      "ops:mysql_connection_pool",
+      "ops:dependency_timeout_cascade"
+    ]
+  },
+  {
+    "id": "holdout_cross-14",
+    "question": "HTTP 接口的 P99 已下降，但错误预算燃烧率仍偏高、某些区域仍报 5xx；需要结合哪些故障与恢复验收知识？",
+    "expectedSources": [
+      "ops:service_slo_and_recovery",
+      "ops:http_5xx_and_latency"
+    ]
+  }
+]

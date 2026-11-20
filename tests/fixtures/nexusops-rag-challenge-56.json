@@ -1,0 +1,408 @@
+[
+  {
+    "id": "paraphrase-01",
+    "question": "请求到了数据库之前就排起长队，一直借不到可用的会话；应首先看客户端池子里哪些数量和等待参数？",
+    "expectedSources": [
+      "ops:mysql_connection_pool"
+    ]
+  },
+  {
+    "id": "paraphrase-02",
+    "question": "缓存服务偶尔几秒才响应，命中率跟着下降；要怎么比较客户端连接和服务端内存指标？",
+    "expectedSources": [
+      "ops:redis_latency_and_connections"
+    ]
+  },
+  {
+    "id": "paraphrase-03",
+    "question": "只有少数接口突然变慢且错误率上涨，如何沿一次请求找到究竟是哪段链路出了问题？",
+    "expectedSources": [
+      "ops:http_5xx_and_latency"
+    ]
+  },
+  {
+    "id": "paraphrase-04",
+    "question": "同一服务在宿主机可访问，在应用容器中却连不上；先从名称解析和端口握手如何逐层定位？",
+    "expectedSources": [
+      "ops:dns_tcp_connectivity"
+    ]
+  },
+  {
+    "id": "paraphrase-05",
+    "question": "上个稳定版本没问题，发布新构建后才出错；怎样用版本与配置证据缩小差异？",
+    "expectedSources": [
+      "ops:deployment_regression"
+    ]
+  },
+  {
+    "id": "paraphrase-06",
+    "question": "程序没明显增加流量，但机器反复把进程杀掉；从内存限制、容器资源与磁盘压力怎么查？",
+    "expectedSources": [
+      "ops:cpu_memory_disk_pressure"
+    ]
+  },
+  {
+    "id": "paraphrase-07",
+    "question": "工作负载总是启动一小会儿就退出；先看上一次容器终止原因还是探针，怎样取证？",
+    "expectedSources": [
+      "ops:kubernetes_pod_health"
+    ]
+  },
+  {
+    "id": "paraphrase-08",
+    "question": "客户端提示对方身份不被信任，部分域名正常部分失败；怎样检查域名匹配与信任链？",
+    "expectedSources": [
+      "ops:tls_certificate_expiry"
+    ]
+  },
+  {
+    "id": "paraphrase-09",
+    "question": "数据进得去却越来越晚被处理；怎么区分消费线程跟不上和生产速率突增？",
+    "expectedSources": [
+      "ops:message_queue_backlog"
+    ]
+  },
+  {
+    "id": "paraphrase-10",
+    "question": "准备从历史数据恢复，但担心恢复点不正确、恢复出的数据不可用；有哪些事前验证？",
+    "expectedSources": [
+      "ops:backup_restore_validation"
+    ]
+  },
+  {
+    "id": "paraphrase-11",
+    "question": "边缘入口偶尔报上游不可用，但应用实例健康状况不同；怎样检查目标池和转发路由？",
+    "expectedSources": [
+      "ops:load_balancer_health"
+    ]
+  },
+  {
+    "id": "paraphrase-12",
+    "question": "发现一个疑似被盗用的登录凭据，如何先保全日志与证据，而不是立刻清理现场？",
+    "expectedSources": [
+      "ops:security_incident_preservation"
+    ]
+  },
+  {
+    "id": "paraphrase-13",
+    "question": "某个下游慢了一点，上游线程和连接很快全部被占满；怎样查重试放大和级联失败？",
+    "expectedSources": [
+      "ops:dependency_timeout_cascade"
+    ]
+  },
+  {
+    "id": "paraphrase-14",
+    "question": "图表重新变绿后可否马上关单？如何判断用户体验、错误预算和恢复观察窗口是否满足？",
+    "expectedSources": [
+      "ops:service_slo_and_recovery"
+    ]
+  },
+  {
+    "id": "log_clues-01",
+    "question": "Java 服务频繁记录 HikariPool - Connection is not available, request timed out after 30000ms；需要先观察哪些指标？",
+    "expectedSources": [
+      "ops:mysql_connection_pool"
+    ]
+  },
+  {
+    "id": "log_clues-02",
+    "question": "缓存客户端报 READONLY/timeout 且连接数上升，evicted_keys 也变多；首先采集什么只读证据？",
+    "expectedSources": [
+      "ops:redis_latency_and_connections"
+    ]
+  },
+  {
+    "id": "log_clues-03",
+    "question": "网关 trace-id 显示请求跨三跳后才失败，5xx 和 P99 一起上涨；如何定位首次报错的位置？",
+    "expectedSources": [
+      "ops:http_5xx_and_latency"
+    ]
+  },
+  {
+    "id": "log_clues-04",
+    "question": "容器内 getaddrinfo 返回临时解析失败，直接访问固定 IP 有时正常；怎样检查 DNS、路由与 TCP？",
+    "expectedSources": [
+      "ops:dns_tcp_connectivity"
+    ]
+  },
+  {
+    "id": "log_clues-05",
+    "question": "Deployment 新镜像发布后 readiness 一直不稳定，旧副本正常；怎样查发布批次和配置差异？",
+    "expectedSources": [
+      "ops:deployment_regression"
+    ]
+  },
+  {
+    "id": "log_clues-06",
+    "question": "Pod 结束状态为 OOMKilled，但 CPU 也有 throttling；怎样分别核查资源 request/limit 和进程证据？",
+    "expectedSources": [
+      "ops:cpu_memory_disk_pressure"
+    ]
+  },
+  {
+    "id": "log_clues-07",
+    "question": "kubectl describe 显示 Back-off restarting failed container，lastState 异常；应该沿哪些 Pod 事件调查？",
+    "expectedSources": [
+      "ops:kubernetes_pod_health"
+    ]
+  },
+  {
+    "id": "log_clues-08",
+    "question": "日志出现 x509: certificate has expired or is not yet valid；如何核实指纹、证书链及 SNI？",
+    "expectedSources": [
+      "ops:tls_certificate_expiry"
+    ]
+  },
+  {
+    "id": "log_clues-09",
+    "question": "Kafka consumer lag 与 oldest message age 同时上涨，DLQ 计数增加；如何诊断消费者吞吐和毒消息？",
+    "expectedSources": [
+      "ops:message_queue_backlog"
+    ]
+  },
+  {
+    "id": "log_clues-10",
+    "question": "恢复演练发现备份校验和与预期不一致；如何确认备份文件完整性与 RPO/RTO？",
+    "expectedSources": [
+      "ops:backup_restore_validation"
+    ]
+  },
+  {
+    "id": "log_clues-11",
+    "question": "入口报告 upstream connect error，部分 target unhealthy；如何定位负载均衡目标和健康检查策略？",
+    "expectedSources": [
+      "ops:load_balancer_health"
+    ]
+  },
+  {
+    "id": "log_clues-12",
+    "question": "审计日志中出现异常权限提升和可疑外传；应如何保留原始时间线、操作者和证据链？",
+    "expectedSources": [
+      "ops:security_incident_preservation"
+    ]
+  },
+  {
+    "id": "log_clues-13",
+    "question": "下游超时后上游大量 retry，线程池等待迅速上涨；如何找出最先失败的调用？",
+    "expectedSources": [
+      "ops:dependency_timeout_cascade"
+    ]
+  },
+  {
+    "id": "log_clues-14",
+    "question": "服务可用率恢复但长尾请求延迟仍超目标、error budget 快耗尽；该如何判断恢复完成？",
+    "expectedSources": [
+      "ops:service_slo_and_recovery"
+    ]
+  },
+  {
+    "id": "confusable-01",
+    "question": "网关500只是表象，应用不断拿不到数据库连接，日志强调 borrow connection timeout；先查哪个方向？",
+    "expectedSources": [
+      "ops:mysql_connection_pool"
+    ]
+  },
+  {
+    "id": "confusable-02",
+    "question": "应用超时但数据库连接稳定，只有缓存命中率骤降和 eviction 激增；应优先查什么？",
+    "expectedSources": [
+      "ops:redis_latency_and_connections"
+    ]
+  },
+  {
+    "id": "confusable-03",
+    "question": "HTTP 503 在不同 API 上出现，尚无明确下游故障；怎样利用 request-id 做跨层错误归因？",
+    "expectedSources": [
+      "ops:http_5xx_and_latency"
+    ]
+  },
+  {
+    "id": "confusable-04",
+    "question": "目标主机是正确的，但连接请求被拒绝或一直超时；如何区分名字解析失败、TCP 拒绝和网络策略？",
+    "expectedSources": [
+      "ops:dns_tcp_connectivity"
+    ]
+  },
+  {
+    "id": "confusable-05",
+    "question": "仅新发布的一批节点报错，旧节点同样的数据库与流量下正常；应查哪类证据？",
+    "expectedSources": [
+      "ops:deployment_regression"
+    ]
+  },
+  {
+    "id": "confusable-06",
+    "question": "接口变慢但网络与数据库正常，磁盘 iowait 很高、日志文件快速增长；优先调查什么？",
+    "expectedSources": [
+      "ops:cpu_memory_disk_pressure"
+    ]
+  },
+  {
+    "id": "confusable-07",
+    "question": "服务端报错发生在启动阶段，容器反复被 liveness probe 重启；应查看哪些 Pod 级对象？",
+    "expectedSources": [
+      "ops:kubernetes_pod_health"
+    ]
+  },
+  {
+    "id": "confusable-08",
+    "question": "TCP 三次握手没问题，HTTPS 才失败，提示证书主机名不匹配；下一步排查什么？",
+    "expectedSources": [
+      "ops:tls_certificate_expiry"
+    ]
+  },
+  {
+    "id": "confusable-09",
+    "question": "接口调用成功但异步任务几个小时没有处理，消费者持续重试同一条消息；适用什么排查流程？",
+    "expectedSources": [
+      "ops:message_queue_backlog"
+    ]
+  },
+  {
+    "id": "confusable-10",
+    "question": "磁盘没有故障，但需要确定从某一时间点恢复会丢失多少事务；用什么恢复评估流程？",
+    "expectedSources": [
+      "ops:backup_restore_validation"
+    ]
+  },
+  {
+    "id": "confusable-11",
+    "question": "同一域名只有部分可用区返回502，其余健康，怀疑流量分配不均与后端探活；从哪查？",
+    "expectedSources": [
+      "ops:load_balancer_health"
+    ]
+  },
+  {
+    "id": "confusable-12",
+    "question": "不是普通服务错误，而是管理员账户从未知地址登录并导出敏感数据；证据应该如何保存？",
+    "expectedSources": [
+      "ops:security_incident_preservation"
+    ]
+  },
+  {
+    "id": "confusable-13",
+    "question": "只有调用某下游超时后才爆发上游请求积压，大量重试进一步放大故障；排查重点是什么？",
+    "expectedSources": [
+      "ops:dependency_timeout_cascade"
+    ]
+  },
+  {
+    "id": "confusable-14",
+    "question": "运维人员看见单个探针变绿就想关闭P1，但交易成功率仍未恢复；应采用哪些关闭标准？",
+    "expectedSources": [
+      "ops:service_slo_and_recovery"
+    ]
+  },
+  {
+    "id": "multi_source-01",
+    "question": "新版本上线后订单服务拿不到数据库连接，既要定位池等待也要对照发布配置，应该查哪些运维手册？",
+    "expectedSources": [
+      "ops:mysql_connection_pool",
+      "ops:deployment_regression"
+    ]
+  },
+  {
+    "id": "multi_source-02",
+    "question": "调用缓存的重试持续放大，主线程池耗尽且缓存响应变慢；同时需要哪些排查证据？",
+    "expectedSources": [
+      "ops:redis_latency_and_connections",
+      "ops:dependency_timeout_cascade"
+    ]
+  },
+  {
+    "id": "multi_source-03",
+    "question": "大量502发生在边缘代理和应用之间，需要从路由请求追踪和负载均衡目标健康一起定位。",
+    "expectedSources": [
+      "ops:http_5xx_and_latency",
+      "ops:load_balancer_health"
+    ]
+  },
+  {
+    "id": "multi_source-04",
+    "question": "一批客户端访问HTTPS服务时，部分DNS查询超时，另一些出现证书链错误，应该并行检查哪些层？",
+    "expectedSources": [
+      "ops:dns_tcp_connectivity",
+      "ops:tls_certificate_expiry"
+    ]
+  },
+  {
+    "id": "multi_source-05",
+    "question": "发布后Pod进入CrashLoopBackOff，旧版本稳定，需要交叉检查探针退出原因和新旧部署配置。",
+    "expectedSources": [
+      "ops:deployment_regression",
+      "ops:kubernetes_pod_health"
+    ]
+  },
+  {
+    "id": "multi_source-06",
+    "question": "Kubernetes工作负载频繁OOMKilled重启，需同时核查主机/容器内存压力与Pod事件和limit。",
+    "expectedSources": [
+      "ops:cpu_memory_disk_pressure",
+      "ops:kubernetes_pod_health"
+    ]
+  },
+  {
+    "id": "multi_source-07",
+    "question": "修复Pod探针后该如何证明整个服务已经恢复，既查工作负载稳定性也查SLO指标。",
+    "expectedSources": [
+      "ops:kubernetes_pod_health",
+      "ops:service_slo_and_recovery"
+    ]
+  },
+  {
+    "id": "multi_source-08",
+    "question": "只有通过特定入口节点的HTTPS连接报告证书异常，需同时比对入口TLS配置和上游转发健康。",
+    "expectedSources": [
+      "ops:tls_certificate_expiry",
+      "ops:load_balancer_health"
+    ]
+  },
+  {
+    "id": "multi_source-09",
+    "question": "异步积压不断增长，下游超时触发生产者重试，如何同时检查消息消费能力与依赖级联？",
+    "expectedSources": [
+      "ops:message_queue_backlog",
+      "ops:dependency_timeout_cascade"
+    ]
+  },
+  {
+    "id": "multi_source-10",
+    "question": "疑似入侵后要从备份恢复关键数据，需先完成取证保全并验证备份的完整性和恢复点。",
+    "expectedSources": [
+      "ops:backup_restore_validation",
+      "ops:security_incident_preservation"
+    ]
+  },
+  {
+    "id": "multi_source-11",
+    "question": "某区域无法访问，但其他区域正常，怀疑DNS返回地址与负载均衡目标健康不一致。",
+    "expectedSources": [
+      "ops:load_balancer_health",
+      "ops:dns_tcp_connectivity"
+    ]
+  },
+  {
+    "id": "multi_source-12",
+    "question": "发现TLS私钥可能泄露，同时客户端报握手失败；如何既保全证据又分析证书异常？",
+    "expectedSources": [
+      "ops:security_incident_preservation",
+      "ops:tls_certificate_expiry"
+    ]
+  },
+  {
+    "id": "multi_source-13",
+    "question": "订单接口上游重试风暴伴随数据库连接池等待激增，如何联动验证下游调用与MySQL会话消耗？",
+    "expectedSources": [
+      "ops:dependency_timeout_cascade",
+      "ops:mysql_connection_pool"
+    ]
+  },
+  {
+    "id": "multi_source-14",
+    "question": "错误率恢复但P99延迟仍高，是否可以关闭Incident？需要同时检查API长尾与恢复验证标准。",
+    "expectedSources": [
+      "ops:service_slo_and_recovery",
+      "ops:http_5xx_and_latency"
+    ]
+  }
+]
